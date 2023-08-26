@@ -1,4 +1,4 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3c0c0c&height=130&section=header&text=PDF GUI Tools&fontSize=39&fontColor=fff&animation=twinkling&fontAlignY=35"/> 
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3c0c0c&height=130&section=header&text=PDF-GUI-Tools&fontSize=39&fontColor=fff&animation=twinkling&fontAlignY=35"/> 
 
 <div align="center"> 
 <p>Technologies used:</p>
