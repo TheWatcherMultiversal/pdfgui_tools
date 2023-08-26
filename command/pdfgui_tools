@@ -9,7 +9,7 @@
 
 set -e
 
-PDFGUI_TOOLS_VERSION="v1.0.0"
+PDFGUI_TOOLS_VERSION="v1.0.1"
 
 case "$1" in
 -h|--help)
