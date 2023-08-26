@@ -1,0 +1,52 @@
+/* styles.qss */
+
+/* All window */
+QWidget {
+    background-color: #1e1e1e;
+    color: #ffffff; 
+    border: 1px solid #272727;
+}
+
+/* List Widget */
+QListWidget::item {
+    height: 50px;
+}
+
+QListWidget::item:selected {
+    background-color: #393939; 
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #3c6ae7;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3159c5;
+}
+
+QPushButton:pressed {
+    background-color: #263aa9;
+}
+
+/* Group Box */
+QGroupBox {
+    border: 2px solid #e74c3c;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1e1e1e;
+}
+
+QGroupBox:title {
+    padding: 5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
