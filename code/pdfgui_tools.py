@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         # Buttons
         self.pdfunite_button.clicked.connect(self.pdfunite)
         self.pdftohtml_button.clicked.connect(self.pdftohtml)
-        self.pdftotext_button.clicked.connect(self.pdftohtml)
+        self.pdftotext_button.clicked.connect(self.pdftotext)
         
 
 # ==============================================================+
