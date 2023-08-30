@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "About"))
         self.label.setText(_translate("MainWindow", "PDF GUI Tools"))
-        self.label_3.setText(_translate("MainWindow", "Version 1.0.1"))
+        self.label_3.setText(_translate("MainWindow", "Version 1.0.2"))
         self.label_2.setText(_translate("MainWindow", "PDF GUI Tools is a graphical user interface tool that integrates the features of poppler-utils."))
         self.label_4.setText(_translate("MainWindow", "© Angel M 2021 - 2023"))
         self.label_5.setText(_translate("MainWindow", "GNU GENERAL PUBLIC LICENSE v3"))
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    with open("/usr/share/pdfgui_tools/styles/about.qss", "r") as f:#-------------> Window style file
+    with open("/usr/share/pdfgui_tools/styles/styles.qss", "r") as f:#-------------> Window style file
         _style = f.read()
         app.setStyleSheet(_style)
     sys.exit(app.exec_())

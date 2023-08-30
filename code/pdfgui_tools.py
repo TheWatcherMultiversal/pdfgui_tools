@@ -15,9 +15,9 @@ import os
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(381, 283)
-        MainWindow.setMinimumSize(QtCore.QSize(381, 283))
-        MainWindow.setMaximumSize(QtCore.QSize(381, 283))
+        MainWindow.resize(381, 339)
+        MainWindow.setMinimumSize(QtCore.QSize(381, 339))
+        MainWindow.setMaximumSize(QtCore.QSize(381, 362))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
@@ -34,7 +34,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(100, 70, 181, 161))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(100, 70, 181, 211))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -42,6 +42,9 @@ class Ui_MainWindow(object):
         self.pdfunite_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pdfunite_button.setObjectName("pdfunite_button")
         self.verticalLayout.addWidget(self.pdfunite_button)
+        self.pdfseparate_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pdfseparate_button.setObjectName("pdfseparate_button")
+        self.verticalLayout.addWidget(self.pdfseparate_button)
         self.pdftohtml_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pdftohtml_button.setObjectName("pdftohtml_button")
         self.verticalLayout.addWidget(self.pdftohtml_button)
@@ -75,6 +78,7 @@ class Ui_MainWindow(object):
 
         # Buttons
         self.pdfunite_button.clicked.connect(self.pdfunite)
+        self.pdfseparate_button.clicked.connect(self.pdfseparate)
         self.pdftohtml_button.clicked.connect(self.pdftohtml)
         self.pdftotext_button.clicked.connect(self.pdftotext)
         
@@ -86,6 +90,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "PDF GUI Tools"))
         self.label.setText(_translate("MainWindow", "PDF gui Tools"))
         self.pdfunite_button.setText(_translate("MainWindow", "Merge PDFs"))
+        self.pdfseparate_button.setText(_translate("MainWindow", "Separate PDF"))
         self.pdftohtml_button.setText(_translate("MainWindow", "PDF to html"))
         self.pdftotext_button.setText(_translate("MainWindow", "PDF to text"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
@@ -96,6 +101,10 @@ class Ui_MainWindow(object):
     # Open the 'Merge PDFs' window
     def pdfunite(self):
         os.system('python3 /usr/share/pdfgui_tools/pdfgui_pdfunite.py')
+
+    # Open the 'Separate PDF' window
+    def pdfseparate(self):
+        os.system('python3 /usr/share/pdfgui_tools/pdfgui_pdfseparate.py')
 
     # Open the 'PDF to html' window
     def pdftohtml(self):

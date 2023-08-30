@@ -111,6 +111,7 @@
     <addaction name="actionAdd_File"/>
     <addaction name="actionDelete"/>
     <addaction name="actionConvert"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -170,6 +171,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="statusTip">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
    </property>
   </action>
  </widget>

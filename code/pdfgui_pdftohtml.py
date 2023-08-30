@@ -12,6 +12,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
+import subprocess
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -67,9 +68,12 @@ class Ui_MainWindow(object):
         self.actionDelete.setObjectName("actionDelete")
         self.actionConvert = QtWidgets.QAction(MainWindow)
         self.actionConvert.setObjectName("actionConvert")
+        self.actionExit = QtWidgets.QAction(MainWindow)
+        self.actionExit.setObjectName("actionExit")
         self.menuFile.addAction(self.actionAdd_File)
         self.menuFile.addAction(self.actionDelete)
         self.menuFile.addAction(self.actionConvert)
+        self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionHelp_PDF_to_html)
         self.menuHelp.addAction(self.actionabout)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -82,15 +86,13 @@ class Ui_MainWindow(object):
 
         # User input connection to functions:
 
-        # Command
-        self.command = "pdftohtml"
-
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
         self.actionConvert.triggered.connect(self.convert_html)
         self.actionabout.triggered.connect(self._about)
         self.actionHelp_PDF_to_html.triggered.connect(self._help)
+        self.actionExit.triggered.connect(self._exit)
 
         # Buttons
         self.button_add.clicked.connect(self.click_add)
@@ -121,6 +123,9 @@ class Ui_MainWindow(object):
         self.actionConvert.setText(_translate("MainWindow", "Convert"))
         self.actionConvert.setStatusTip(_translate("MainWindow", "Convert to html"))
         self.actionConvert.setShortcut(_translate("MainWindow", "Ctrl+S"))
+        self.actionExit.setText(_translate("MainWindow", "Exit"))
+        self.actionExit.setStatusTip(_translate("MainWindow", "Exit"))
+        self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
 # ======================================| Modify |=================================================================================+
 
@@ -160,6 +165,9 @@ class Ui_MainWindow(object):
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
+            # Command
+            self.command = "pdftohtml"
+
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
                 print(f'File {row}:', item.text())
@@ -176,10 +184,10 @@ class Ui_MainWindow(object):
                 print(self.command)
                 print("Save file:", file_name)
                 try:
-                    os.system(self.command)#----------> The 'pdftohtml' command is executed
-                    sys.exit()#-----------------------> The application is closed
-                except Exception:
-                    QMessageBox.critical(MainWindow, "Error", 'Err Executing the command, please check the name of the final file and the integrity of your other files.', QMessageBox.Ok)
+                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftohtml' command is executed
+                    sys.exit()#---------------------------------------------------------------> The application is closed
+                except subprocess.CalledProcessError:
+                    QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please verify the name and integrity of the document.', QMessageBox.Ok)
             else:
                 print("Cancel...")
 
@@ -199,6 +207,11 @@ class Ui_MainWindow(object):
 """)
                           
 # -------------------------------------------------------------------
+
+    # Exit
+    def _exit(self):
+        print('Exit...')
+        sys.exit()
 
 # =================================================================================================================================+
 

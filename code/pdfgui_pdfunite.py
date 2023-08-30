@@ -11,6 +11,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import subprocess
 import os
 
 class Ui_MainWindow(object):
@@ -79,6 +80,8 @@ class Ui_MainWindow(object):
         self.actionDown.setObjectName("actionDown")
         self.actionSave = QtWidgets.QAction(MainWindow)
         self.actionSave.setObjectName("actionSave")
+        self.actionExit = QtWidgets.QAction(MainWindow)
+        self.actionExit.setObjectName("actionExit")
         self.actionHelp_Merge_PDF = QtWidgets.QAction(MainWindow)
         self.actionHelp_Merge_PDF.setObjectName("actionHelp_Merge_PDF")
         self.actionAbout = QtWidgets.QAction(MainWindow)
@@ -88,6 +91,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionUp)
         self.menuFile.addAction(self.actionDown)
         self.menuFile.addAction(self.actionSave)
+        self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionHelp_Merge_PDF)
         self.menuHelp.addAction(self.actionAbout)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -100,9 +104,6 @@ class Ui_MainWindow(object):
 
         # User input connection to functions:
 
-        # Command
-        self.command = "pdfunite"
-
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
@@ -111,6 +112,7 @@ class Ui_MainWindow(object):
         self.actionSave.triggered.connect(self.merge_pdf)
         self.actionHelp_Merge_PDF.triggered.connect(self._help)
         self.actionAbout.triggered.connect(self._about)
+        self.actionExit.triggered.connect(self._exit)
 
         # Buttons
         self.button_add.clicked.connect(self.click_add)
@@ -151,6 +153,9 @@ class Ui_MainWindow(object):
         self.actionHelp_Merge_PDF.setStatusTip(_translate("MainWindow", "Help Merge PDF"))
         self.actionHelp_Merge_PDF.setShortcut(_translate("MainWindow", "F1"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
+        self.actionExit.setText(_translate("MainWindow", "Exit"))
+        self.actionExit.setStatusTip(_translate("MainWindow", "Exit"))
+        self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
 
 # ======================================| Modify |=================================================================================+
 
@@ -204,6 +209,9 @@ class Ui_MainWindow(object):
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
+            # Command
+            self.command = "pdfunite"
+
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
                 print(f'File {row}:', item.text())
@@ -220,10 +228,10 @@ class Ui_MainWindow(object):
                 print(self.command)
                 print("Save file:", file_name)
                 try:
-                    os.system(self.command)#----------> The 'pdfunite' command is executed
-                    sys.exit()#-----------------------> The application is closed
-                except Exception:
-                    QMessageBox.critical(MainWindow, "Error", 'Err Executing the command, please check the name of the final file and the integrity of your other files.', QMessageBox.Ok)
+                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdfunite' command is executed
+                    sys.exit()#---------------------------------------------------------------> The application is closed
+                except subprocess.CalledProcessError:
+                    QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please check the name of the final file and the integrity of your other files.', QMessageBox.Ok)
             else:
                 print("Cancel...")
 
@@ -244,6 +252,11 @@ class Ui_MainWindow(object):
 """)
                           
 # -------------------------------------------------------------------
+
+    # Exit
+    def _exit(self):
+        print('Exit...')
+        sys.exit()
 
 # =================================================================================================================================+
 
