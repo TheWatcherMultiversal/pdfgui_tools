@@ -60,18 +60,18 @@ except subprocess.CalledProcessError:
 #   |
 #   °-- Remove pdfgui_tools if it's previously installed:
 
-print(Fore.YELLOW + '\r\nThe following command requires superuser privileges:' + Fore.RESET + 'sudo rm -r\r\n')
-print(Fore.GREEN + 'Removing existing files and installing new ones' + Fore.RESET)
+print(Fore.YELLOW + '\r\nThe following command requires superuser privileges:' + Fore.RESET + ' sudo rm -r\r\n')
+print(Fore.GREEN + 'Removing existing files and installing new ones...' + Fore.RESET)
 
-subprocess.run(f'sudo rm -r /usr/bin/pdfgui_tools /usr/share/pdfgui_tools/ /usr/applications/pdfgui_tools.desktop /usr/share/doc/pdfgui_tools/ /usr/share/man/man1/pdfgui_tools.1.gz', shell=True)
+subprocess.run(f'sudo rm -r /usr/bin/pdfgui_tools /usr/share/pdfgui_tools/ /usr/share/applications/pdfgui_tools.desktop /usr/share/doc/pdfgui_tools/ /usr/share/man/man1/pdfgui_tools.1.gz', shell=True)
 
 # ------------------------------------------------------------------ (*)
 #   |
 #   |
 #   °-- Build the package on the system:
 
-print(Fore.YELLOW + '\r\nThe following command requires superuser privileges:' + Fore.RESET + 'sudo cp -R -n\r\n')
-print(Fore.GREEN + 'Copying files to their corresponding paths' + Fore.RESET)
+print(Fore.YELLOW + '\r\nThe following command requires superuser privileges:' + Fore.RESET + ' sudo cp -R -n\r\n')
+print(Fore.GREEN + 'Copying files to their corresponding paths...' + Fore.RESET)
 
 try:
     subprocess.run([f'sudo cp -R -n {package[:-7]}/usr/ /'], check=True, shell=True)
@@ -82,4 +82,4 @@ except subprocess.CalledProcessError:
 
 # Remove the files generated during the installation
 subprocess.run(f'rm -r {package[:-7]} {package}', shell=True)
-print(Fore.GREEN + 'Installation complete' + Fore.RESET + ', run ' + Fore.YELLOW + './uninstall.py' + Fore.RESET + 'to remove pdfgui_tools')
+print(Fore.GREEN + '\r\nInstallation complete' + Fore.RESET + ', run ' + Fore.YELLOW + './uninstall.py' + Fore.RESET + ' to remove pdfgui_tools\r\n')
