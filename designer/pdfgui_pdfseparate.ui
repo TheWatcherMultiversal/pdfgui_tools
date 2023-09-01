@@ -7,23 +7,27 @@
     <x>0</x>
     <y>0</y>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>PDF to html</string>
+   <string>Separate PDF</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/pdfguitools.svg</normaloff>../icons/pdfguitools.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -32,11 +36,11 @@
       <x>20</x>
       <y>20</y>
       <width>711</width>
-      <height>271</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="title">
-     <string>PDF to html</string>
+     <string>Separate PDF</string>
     </property>
     <widget class="QListWidget" name="listWidget">
      <property name="geometry">
@@ -85,9 +89,61 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="button_convert">
+       <widget class="QPushButton" name="button_viewpdf">
         <property name="text">
-         <string>Convert</string>
+         <string>View PDF</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_separate">
+        <property name="text">
+         <string>Separate</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>250</y>
+       <width>58</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>240</y>
+       <width>320</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QSpinBox" name="spin_start"/>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="check_start">
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spin_final"/>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="check_final">
+        <property name="text">
+         <string>Final</string>
         </property>
        </widget>
       </item>
@@ -110,26 +166,26 @@
     </property>
     <addaction name="actionAdd_File"/>
     <addaction name="actionDelete"/>
-    <addaction name="actionConvert"/>
+    <addaction name="actionSeparate"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionHelp_PDF_to_html"/>
+    <addaction name="actionHelp_SeparatePDF"/>
     <addaction name="actionabout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionHelp_PDF_to_html">
+  <action name="actionHelp_SeparatePDF">
    <property name="text">
-    <string>Help PDF to html</string>
+    <string>Help Separate PDF</string>
    </property>
    <property name="statusTip">
-    <string>Help PDF to html</string>
+    <string>Help Separate PDF</string>
    </property>
    <property name="shortcut">
     <string>F1</string>
@@ -162,12 +218,12 @@
     <string>Backspace</string>
    </property>
   </action>
-  <action name="actionConvert">
+  <action name="actionSeparate">
    <property name="text">
-    <string>Convert</string>
+    <string>Separate</string>
    </property>
    <property name="statusTip">
-    <string>Convert to html</string>
+    <string>Separate PDF</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>

@@ -4,7 +4,6 @@
 QWidget {
     background-color: #1e1e1e;
     color: #ffffff; 
-    border: 1px solid #272727;
 }
 
 /* List Widget */
@@ -49,4 +48,31 @@ QGroupBox:title {
     color: white;
     font-size: 14px;
     font-weight: bold;
+}
+
+/* Check Box */
+QCheckBox {
+    font-size: 14px;
+    color: #ffffff;
+    padding: 5px;
+}
+
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked {
+    border: 2px solid #555;
+    background-color: #333;
+}
+
+QCheckBox::indicator:checked {
+    border: 2px solid #00cc4e;
+    background-color: rgb(23, 207, 121);
+}
+
+QCheckBox::indicator:unchecked:hover,
+QCheckBox::indicator:checked:hover {
+    border: 2px solid #00cc4e;
 }
