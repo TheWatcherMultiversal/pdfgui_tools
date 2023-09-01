@@ -35,6 +35,25 @@ Now we just need to check if the program was installed correctly, for this we ex
 
     pdfgui_tools
 
+## Install using a script
+If you do not have a Debian-based distribution or if you have a different package manager, you can use the installation script `./install.py`.
+
+To do this, first make sure that the `./install.py` script and the `./uninstall.py` script have the necessary permissions to run on the system:
+
+    chmod 755 ./install.py ./uninstall.py
+
+Now we can install pdfgui_tools by running the installation script:
+
+    ./install.py
+
+- Note: You can uninstall pdfgui_tools from the system using the `./uninstall.py` script.
+
+Now we just need to check if the program was installed correctly, for this we execute the following:
+
+    pdfgui_tools
+
+In case you encounter any errors while running the script, please read the error messages provided by the script. Additionally, you will need to install the necessary dependencies to run pdfgui_tools correctly.
+
 ## Start using pdfgui_tools
 To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like the following should appear:
 
