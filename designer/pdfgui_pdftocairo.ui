@@ -7,23 +7,27 @@
     <x>0</x>
     <y>0</y>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>753</width>
-    <height>357</height>
+    <height>421</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>PDF to text</string>
+   <string>PDF to multimedia file</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/pdfguitools.svg</normaloff>../icons/pdfguitools.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -32,11 +36,11 @@
       <x>20</x>
       <y>20</y>
       <width>711</width>
-      <height>261</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="title">
-     <string>PDF to text</string>
+     <string>PDF to multimedia file</string>
     </property>
     <widget class="QListWidget" name="listWidget">
      <property name="geometry">
@@ -93,12 +97,79 @@
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>250</y>
+       <width>58</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>240</y>
+       <width>201</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>File type    </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="combo_filetype">
+        <item>
+         <property name="text">
+          <string>PNG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>JPEG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>PS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>EPS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SVG</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QLabel" name="label_notice">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>290</y>
+      <y>360</y>
       <width>311</width>
       <height>18</height>
      </rect>
@@ -130,19 +201,19 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionHelp_PDF_to_html"/>
+    <addaction name="actionHelp_PDFtoMultimedia"/>
     <addaction name="actionabout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionHelp_PDF_to_html">
+  <action name="actionHelp_PDFtoMultimedia">
    <property name="text">
-    <string>Help PDF to text</string>
+    <string>Help PDF to multimedia file</string>
    </property>
    <property name="statusTip">
-    <string>Help PDF to text</string>
+    <string>Help PDF to multimedia file</string>
    </property>
    <property name="shortcut">
     <string>F1</string>
@@ -180,7 +251,7 @@
     <string>Convert</string>
    </property>
    <property name="statusTip">
-    <string>Convert to text</string>
+    <string>Convert</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>

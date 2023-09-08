@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 #
 # PDF GUI TOOLS
 # 
@@ -45,6 +46,9 @@ class Ui_MainWindow(object):
         self.pdfseparate_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pdfseparate_button.setObjectName("pdfseparate_button")
         self.verticalLayout.addWidget(self.pdfseparate_button)
+        self.pdftocairo_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pdftocairo_button.setObjectName("pdftocairo_button")
+        self.verticalLayout.addWidget(self.pdftocairo_button)
         self.pdftohtml_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pdftohtml_button.setObjectName("pdftohtml_button")
         self.verticalLayout.addWidget(self.pdftohtml_button)
@@ -79,6 +83,7 @@ class Ui_MainWindow(object):
         # Buttons
         self.pdfunite_button.clicked.connect(self.pdfunite)
         self.pdfseparate_button.clicked.connect(self.pdfseparate)
+        self.pdftocairo_button.clicked.connect(self.pdftocairo)
         self.pdftohtml_button.clicked.connect(self.pdftohtml)
         self.pdftotext_button.clicked.connect(self.pdftotext)
         
@@ -91,6 +96,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "PDF gui Tools"))
         self.pdfunite_button.setText(_translate("MainWindow", "Merge PDFs"))
         self.pdfseparate_button.setText(_translate("MainWindow", "Separate PDF"))
+        self.pdftocairo_button.setText(_translate("MainWindow", "PDF to multimedia file"))
         self.pdftohtml_button.setText(_translate("MainWindow", "PDF to html"))
         self.pdftotext_button.setText(_translate("MainWindow", "PDF to text"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
@@ -105,6 +111,10 @@ class Ui_MainWindow(object):
     # Open the 'Separate PDF' window
     def pdfseparate(self):
         os.system('python3 /usr/share/pdfgui_tools/pdfgui_pdfseparate.py')
+
+    # Open the 'PDF to multimedia file' window
+    def pdftocairo(self):
+        os.system('python3 /usr/share/pdfgui_tools/pdfgui_pdftocairo.py')
 
     # Open the 'PDF to html' window
     def pdftohtml(self):

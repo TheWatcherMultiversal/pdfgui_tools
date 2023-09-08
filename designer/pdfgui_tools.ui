@@ -77,6 +77,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pdftocairo_button">
+       <property name="text">
+        <string>PDF to multimedia file</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pdftohtml_button">
        <property name="text">
         <string>PDF to html</string>

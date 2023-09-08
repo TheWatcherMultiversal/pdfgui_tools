@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 #
 # PDF GUI TOOLS - pdfunite
 # 
@@ -58,6 +59,10 @@ class Ui_MainWindow(object):
         self.button_merge = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
         self.button_merge.setObjectName("button_merge")
         self.verticalLayout_2.addWidget(self.button_merge)
+        self.label_notice = QtWidgets.QLabel(self.centralwidget)
+        self.label_notice.setGeometry(QtCore.QRect(10, 530, 431, 18))
+        self.label_notice.setText("")
+        self.label_notice.setObjectName("label_notice")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 24))
@@ -201,9 +206,9 @@ class Ui_MainWindow(object):
 
     # Merge PDFs
     def merge_pdf(self):
+        from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 2:
-            from PyQt5.QtWidgets import QMessageBox
             print("Add more files")
             QMessageBox.critical(MainWindow, "Error", 'Add at least two files', QMessageBox.Ok)
 
@@ -211,6 +216,9 @@ class Ui_MainWindow(object):
         else:
             # Command
             self.command = "pdfunite"
+
+            # Notice
+            self.label_notice.setText("Merge PDFs, please wait...")
 
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
@@ -234,6 +242,8 @@ class Ui_MainWindow(object):
                     QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please check the name of the final file and the integrity of your other files.', QMessageBox.Ok)
             else:
                 print("Cancel...")
+
+            self.label_notice.setText("")
 
     # Open the 'About' window
     def _about(self):

@@ -8,6 +8,8 @@ Here the UI files are stored to work directly with Qt 5 Designer. Each file must
 
 - `pdfgui_tools.ui` - main section of the app
 - `pdfgui_pdfunite.ui` - merge PDFs
+- `pdfgui_pdfseparate.py` - separate PDF
+- `pdfgui_pdftocairo.py` - PDF to media file
 - `pdfgui_pdftohtml.ui` - PDF to html
 - `pdfgui_pdftotext.ui` - PDF to text
 - `about.py.ui` - about window
