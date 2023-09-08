@@ -32,7 +32,7 @@
       <x>20</x>
       <y>20</y>
       <width>711</width>
-      <height>271</height>
+      <height>261</height>
      </rect>
     </property>
     <property name="title">
@@ -93,6 +93,19 @@
       </item>
      </layout>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_notice">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>311</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -23,11 +23,11 @@
 ## Install via deb package
 To install pdfgui_tools, you will first need to download the **Debian package**, which can be found at the following link: 
 
-<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v1.0.2/pdfgui_tools_stable-release_1.0.2_all.deb" target="_blank">📦 Download deb package</a>
+<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v1.0.3/pdfgui_tools_stable-release_1.0.3_all.deb" target="_blank">📦 Download deb package</a>
 
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
-    sudo dpkg -i pdfgui_tools_stable-release_1.0.2_all.deb
+    sudo dpkg -i pdfgui_tools_stable-release_1.0.3_all.deb
     
 - Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
 

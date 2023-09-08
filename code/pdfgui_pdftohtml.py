@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 #
 # PDF GUI TOOLS - pdftohtml
 # 
@@ -26,7 +27,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 271))
+        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 261))
         self.groupBox.setObjectName("groupBox")
         self.listWidget = QtWidgets.QListWidget(self.groupBox)
         self.listWidget.setGeometry(QtCore.QRect(20, 60, 671, 111))
@@ -46,6 +47,10 @@ class Ui_MainWindow(object):
         self.button_convert = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.button_convert.setObjectName("button_convert")
         self.horizontalLayout.addWidget(self.button_convert)
+        self.label_notice = QtWidgets.QLabel(self.centralwidget)
+        self.label_notice.setGeometry(QtCore.QRect(20, 290, 311, 18))
+        self.label_notice.setText("")
+        self.label_notice.setObjectName("label_notice")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 753, 24))
@@ -157,9 +162,9 @@ class Ui_MainWindow(object):
 
     # Convert PDF to Html
     def convert_html(self):
+        from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 1:
-            from PyQt5.QtWidgets import QMessageBox
             print("you need to add file")
             QMessageBox.critical(MainWindow, "Error", 'You need to add file', QMessageBox.Ok)
 
@@ -167,6 +172,9 @@ class Ui_MainWindow(object):
         else:
             # Command
             self.command = "pdftohtml"
+
+            # Notice
+            self.label_notice.setText("Convert pdf to html, please wait...")
 
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
@@ -190,6 +198,8 @@ class Ui_MainWindow(object):
                     QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please verify the name and integrity of the document.', QMessageBox.Ok)
             else:
                 print("Cancel...")
+
+            self.label_notice.setText("")
 
     # Open the 'About' window
     def _about(self):

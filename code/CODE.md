@@ -6,6 +6,8 @@ Here is where the code and program logic are stored. Modify the files only if yo
 
 - `pdfgui_tools.py` - main section of the app
 - `pdfgui_pdfunite.py` - merge PDFs
+- `pdfgui_pdfseparate.py` - separate PDF
+- `pdfgui_pdftocairo.py` - PDF to media file
 - `pdfgui_pdftohtml.py` - PDF to html
 - `pdfgui_pdftotext.py` - PDF to text
 - `about.py` - about window

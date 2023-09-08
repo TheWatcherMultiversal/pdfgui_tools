@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 #
-# PDF GUI TOOLS - pdftotext
+# PDF GUI TOOLS - pdftocairo
 # 
-# pdftotext - Convert PDF documents into text files.
+# pdftocairo - Converts the PDF file into multimedia files.
 # Author: Angel Gabriel Mortera Gual
 # License: GNU GENERAL PUBLIC LICENSE v3
 #
@@ -10,24 +10,23 @@
 #
 # -----------------------------------------------------------------------------------
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import os
 import subprocess
+import os
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(753, 357)
-        MainWindow.setMinimumSize(QtCore.QSize(753, 357))
-        MainWindow.setMaximumSize(QtCore.QSize(753, 357))
+        MainWindow.resize(753, 421)
+        MainWindow.setMinimumSize(QtCore.QSize(753, 421))
+        MainWindow.setMaximumSize(QtCore.QSize(753, 421))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 261))
+        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 331))
         self.groupBox.setObjectName("groupBox")
         self.listWidget = QtWidgets.QListWidget(self.groupBox)
         self.listWidget.setGeometry(QtCore.QRect(20, 60, 671, 111))
@@ -49,8 +48,31 @@ class Ui_MainWindow(object):
         self.button_convert = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.button_convert.setObjectName("button_convert")
         self.horizontalLayout.addWidget(self.button_convert)
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(20, 250, 58, 18))
+        self.label.setText("")
+        self.label.setObjectName("label")
+        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.groupBox)
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(490, 240, 201, 51))
+        self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_2 = QtWidgets.QLabel(self.horizontalLayoutWidget_2)
+        self.label_2.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_2.addWidget(self.label_2)
+        self.combo_filetype = QtWidgets.QComboBox(self.horizontalLayoutWidget_2)
+        self.combo_filetype.setObjectName("combo_filetype")
+        self.combo_filetype.addItem("")
+        self.combo_filetype.addItem("")
+        self.combo_filetype.addItem("")
+        self.combo_filetype.addItem("")
+        self.combo_filetype.addItem("")
+        self.horizontalLayout_2.addWidget(self.combo_filetype)
         self.label_notice = QtWidgets.QLabel(self.centralwidget)
-        self.label_notice.setGeometry(QtCore.QRect(20, 290, 311, 18))
+        self.label_notice.setGeometry(QtCore.QRect(20, 360, 311, 18))
         self.label_notice.setText("")
         self.label_notice.setObjectName("label_notice")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -65,8 +87,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionHelp_PDF_to_text = QtWidgets.QAction(MainWindow)
-        self.actionHelp_PDF_to_text.setObjectName("actionHelp_PDF_to_html")
+        self.actionHelp_PDFtoMultimedia = QtWidgets.QAction(MainWindow)
+        self.actionHelp_PDFtoMultimedia.setObjectName("actionHelp_PDFtoMultimedia")
         self.actionabout = QtWidgets.QAction(MainWindow)
         self.actionabout.setObjectName("actionabout")
         self.actionAdd_File = QtWidgets.QAction(MainWindow)
@@ -81,7 +103,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDelete)
         self.menuFile.addAction(self.actionConvert)
         self.menuFile.addAction(self.actionExit)
-        self.menuHelp.addAction(self.actionHelp_PDF_to_text)
+        self.menuHelp.addAction(self.actionHelp_PDFtoMultimedia)
         self.menuHelp.addAction(self.actionabout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -96,30 +118,36 @@ class Ui_MainWindow(object):
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
-        self.actionConvert.triggered.connect(self.convert_text)
+        self.actionConvert.triggered.connect(self.convert)
         self.actionabout.triggered.connect(self._about)
-        self.actionHelp_PDF_to_text.triggered.connect(self._help)
+        self.actionHelp_PDFtoMultimedia.triggered.connect(self._help)
         self.actionExit.triggered.connect(self._exit)
 
         # Buttons
         self.button_add.clicked.connect(self.click_add)
         self.button_delete.clicked.connect(self.click_delete)
-        self.button_convert.clicked.connect(self.convert_text)
+        self.button_convert.clicked.connect(self.convert)
 
 # ==============================================================+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "PDF to text"))
-        self.groupBox.setTitle(_translate("MainWindow", "PDF to text"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "PDF to multimedia file"))
+        self.groupBox.setTitle(_translate("MainWindow", "PDF to multimedia file"))
         self.button_add.setText(_translate("MainWindow", "Add File"))
         self.button_delete.setText(_translate("MainWindow", "Delete"))
         self.button_convert.setText(_translate("MainWindow", "Convert"))
+        self.label_2.setText(_translate("MainWindow", "File type    "))
+        self.combo_filetype.setItemText(0, _translate("MainWindow", "PNG"))
+        self.combo_filetype.setItemText(1, _translate("MainWindow", "JPEG"))
+        self.combo_filetype.setItemText(2, _translate("MainWindow", "PS"))
+        self.combo_filetype.setItemText(3, _translate("MainWindow", "EPS"))
+        self.combo_filetype.setItemText(4, _translate("MainWindow", "SVG"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionHelp_PDF_to_text.setText(_translate("MainWindow", "Help PDF to text"))
-        self.actionHelp_PDF_to_text.setStatusTip(_translate("MainWindow", "Help PDF to text"))
-        self.actionHelp_PDF_to_text.setShortcut(_translate("MainWindow", "F1"))
+        self.actionHelp_PDFtoMultimedia.setText(_translate("MainWindow", "Help PDF to multimedia file"))
+        self.actionHelp_PDFtoMultimedia.setStatusTip(_translate("MainWindow", "Help PDF to multimedia file"))
+        self.actionHelp_PDFtoMultimedia.setShortcut(_translate("MainWindow", "F1"))
         self.actionabout.setText(_translate("MainWindow", "about"))
         self.actionAdd_File.setText(_translate("MainWindow", "Add File"))
         self.actionAdd_File.setStatusTip(_translate("MainWindow", "Add File"))
@@ -128,12 +156,11 @@ class Ui_MainWindow(object):
         self.actionDelete.setStatusTip(_translate("MainWindow", "Delete"))
         self.actionDelete.setShortcut(_translate("MainWindow", "Backspace"))
         self.actionConvert.setText(_translate("MainWindow", "Convert"))
-        self.actionConvert.setStatusTip(_translate("MainWindow", "Convert to text"))
+        self.actionConvert.setStatusTip(_translate("MainWindow", "Convert"))
         self.actionConvert.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setStatusTip(_translate("MainWindow", "Exit"))
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
-
 
 # ======================================| Modify |=================================================================================+
 
@@ -162,8 +189,9 @@ class Ui_MainWindow(object):
             else:
                 print("No item selected for deletion.")
 
-    # Convert PDF to Text
-    def convert_text(self):
+
+    # Convert PDF
+    def convert(self):
         from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 1:
@@ -173,10 +201,17 @@ class Ui_MainWindow(object):
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
             # Command
-            self.command = "pdftotext"
+            self.command = "pdftocairo"
+
+            # Get the value of the ComboBox
+            filetype = str(self.combo_filetype.currentText())
+            lower_filetype = filetype.lower()
 
             # Notice
-            self.label_notice.setText("Convert pdf to text, please wait...")
+            self.label_notice.setText(f"Convert pdf to {lower_filetype}, please wait...")
+
+            # The parameter is added to the command.
+            self.command += ' ' + f'-{lower_filetype}'
 
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
@@ -187,25 +222,29 @@ class Ui_MainWindow(object):
             options = QFileDialog.Options()
 
             # Asks where to save and how to name the file, obtains the path
-            file_name, _ = QFileDialog.getSaveFileName(MainWindow, "Save File", ".txt", "TXT Files (*.txt)", options=options)
+            file_name, _ = QFileDialog.getSaveFileName(MainWindow, "Save File", f".{lower_filetype}", f"{filetype} Files (*.{lower_filetype})", options=options)
 
             if file_name:
                 self.command += " " + str(f'"{file_name}"')
                 print(self.command)
                 print("Save file:", file_name)
+
                 try:
-                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftotext' command is executed
+                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftocairo' command is executed
                     sys.exit()#---------------------------------------------------------------> The application is closed
                 except subprocess.CalledProcessError:
+                    self.label_notice.setText("")
                     QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please verify the name and integrity of the document.', QMessageBox.Ok)
             else:
                 print("Cancel...")
 
             self.label_notice.setText("")
 
+    # Open the 'About' window
     def _about(self):
         os.system('python3 /usr/share/pdfgui_tools/about.py')
 
+    # Function Help
     def _help(self):
         from PyQt5.QtWidgets import QMessageBox
 
@@ -213,7 +252,19 @@ class Ui_MainWindow(object):
         QMessageBox.about(MainWindow, "Help", """Controls:
 - Add a file: Ctrl+A (Only one file at a time)
 - Delete an item: Backspace
-- Convert PDF to text: Ctrl+S
+- Convert PDF to multimedia file: Ctrl+S
+                          
+Options:
+- File type: Choose what to convert the PDF document into.
+                          
+* For PNG/JPEG files, the resulting file(s) will be one or 
+multiple images from the selected PDF document. Please 
+consider the number of pages in your PDF document.
+                          
+* For PS/EPS/SVG files, try to select single-page PDF 
+documents. Remember, you can use the PDF separate tool
+and then convert the document to the desired multimedia 
+file if this situation arises.
 """)
                           
 # -------------------------------------------------------------------
