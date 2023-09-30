@@ -11,6 +11,7 @@
 # -----------------------------------------------------------------------------------
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox, QFileDialog
 import subprocess
 import os
 
@@ -166,7 +167,6 @@ class Ui_MainWindow(object):
 
     # Function to add a file to 'self.listWidget'
     def click_add(self):
-        from PyQt5.QtWidgets import QFileDialog, QMessageBox
         if self.listWidget.count() == 1:
             print("One file permited")
             QMessageBox.critical(MainWindow, "Error", 'Only one file at a time.', QMessageBox.Ok)
@@ -192,7 +192,6 @@ class Ui_MainWindow(object):
 
     # Convert PDF
     def convert(self):
-        from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 1:
             print("you need to add file")
@@ -218,7 +217,6 @@ class Ui_MainWindow(object):
                 print(f'File {row}:', item.text())
                 self.command += ' "' + item.text() + '"'
 
-            from PyQt5.QtWidgets import QFileDialog
             options = QFileDialog.Options()
 
             # Asks where to save and how to name the file, obtains the path
@@ -246,7 +244,6 @@ class Ui_MainWindow(object):
 
     # Function Help
     def _help(self):
-        from PyQt5.QtWidgets import QMessageBox
 
 # Help Message ------------------------------------------------------
         QMessageBox.about(MainWindow, "Help", """Controls:

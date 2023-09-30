@@ -12,8 +12,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox, QFileDialog
 import subprocess
 import os
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -166,13 +168,15 @@ class Ui_MainWindow(object):
 
     # Function to add a file to 'self.listWidget'
     def click_add(self):
-        from PyQt5.QtWidgets import QFileDialog
+        
         options = QFileDialog.Options()
-        file_name, _ = QFileDialog.getOpenFileName(MainWindow, "Select File", "", "PDF Files (*.pdf)", options=options)
-        if file_name:
-            print("Add file:", file_name)
-            new_element = file_name
-            self.listWidget.addItem(new_element)
+        options |= QFileDialog.DontUseNativeDialog
+        files, _ = QFileDialog.getOpenFileNames(MainWindow, "Select PDF Files", "", "PDF Files (*.pdf);;All Files (*)", options=options)
+        if files:
+            for file_name in files:
+                print("Add file:", file_name)
+                new_element = file_name
+                self.listWidget.addItem(new_element)
         else:
             print("Cancel...")
 
@@ -206,7 +210,6 @@ class Ui_MainWindow(object):
 
     # Merge PDFs
     def merge_pdf(self):
-        from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 2:
             print("Add more files")
@@ -225,7 +228,6 @@ class Ui_MainWindow(object):
                 print(f'File {row}:', item.text())
                 self.command += ' "' + item.text() + '"'
 
-            from PyQt5.QtWidgets import QFileDialog
             options = QFileDialog.Options()
 
             # Asks where to save and how to name the file, obtains the path
@@ -251,7 +253,6 @@ class Ui_MainWindow(object):
 
     # Function Help
     def _help(self):
-        from PyQt5.QtWidgets import QMessageBox
 
 # Help Message ------------------------------------------------------
         QMessageBox.about(MainWindow, "Help", """Controls:
