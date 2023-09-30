@@ -12,6 +12,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox, QFileDialog
 import subprocess
 import os
 
@@ -169,7 +170,6 @@ class Ui_MainWindow(object):
 
     # Function to add a file to 'self.listWidget'
     def click_add(self):
-        from PyQt5.QtWidgets import QFileDialog, QMessageBox
         if self.listWidget.count() == 1:
             print("One file permited")
             QMessageBox.critical(MainWindow, "Error", 'Only one file at a time.', QMessageBox.Ok)
@@ -196,7 +196,6 @@ class Ui_MainWindow(object):
     def viewpdf(self):
 
         if self.listWidget.count() < 1:
-            from PyQt5.QtWidgets import QMessageBox
             print("you need to add file")
             QMessageBox.critical(MainWindow, "Error", 'You need to add file', QMessageBox.Ok)
         else:
@@ -204,12 +203,10 @@ class Ui_MainWindow(object):
                 item = self.listWidget.item(0)
                 subprocess.run([f'xdg-open "{item.text()}"'], check=True, shell=True)#------> Use xdg-open to open the default PDF viewer
             except subprocess.CalledProcessError:
-                from PyQt5.QtWidgets import QMessageBox
                 QMessageBox.critical(MainWindow, "Error", 'The PDF file could not be viewed', QMessageBox.Ok)
 
     # Separate PDF
     def separate_pdf(self):
-        from PyQt5.QtWidgets import QMessageBox
 
         if self.listWidget.count() < 1:
             print("you need to add file")
@@ -240,7 +237,6 @@ class Ui_MainWindow(object):
                 print(f'File {row}:', item.text())
                 self.command += ' "' + item.text() + '"'
 
-            from PyQt5.QtWidgets import QFileDialog
             options = QFileDialog.Options()
             options |= QFileDialog.ShowDirsOnly
             options |= QFileDialog.DontUseNativeDialog
@@ -274,7 +270,6 @@ class Ui_MainWindow(object):
         os.system('python3 /usr/share/pdfgui_tools/about.py')
 
     def _help(self):
-        from PyQt5.QtWidgets import QMessageBox
 
 # Help Message ------------------------------------------------------
         QMessageBox.about(MainWindow, "Help", """Controls:

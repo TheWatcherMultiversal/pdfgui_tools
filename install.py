@@ -24,7 +24,7 @@ except ImportError:
 #   |
 #   °-- Defining the variable names:
 
-version     = '1.0.3'
+version     = '1.0.4'
 package     = f'pdfgui_tools_stable-release_{version}_all.tar.gz'
 url_package = f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package}'
 
