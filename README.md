@@ -53,8 +53,9 @@ Now we can install pdfgui_tools by running the installation script:
 In a special case where your distribution doesn't include the **poppler-utils** package in its repositories, use the `--all` parameter of the installation script to include **poppler-utils** in the installation:
 
     ./install.py --all
-    
-- Note: If you need to uninstall everything, run `./uninstall.py` again with the `--all` parameter.
+
+- <p>The <b>poppler-utils</b> package included in the installation script is designed for the <b>amd64</b> architecture. If you need this package for a different architecture, we recommend checking the official <a href="https://poppler.freedesktop.org/" >poppler-utils</a> page and obtaining the source code.</p>
+- If you need to uninstall everything, run `./uninstall.py` again with the `--all` parameter.
 
 Now we just need to check if the program was installed correctly, for this we execute the following:
 
