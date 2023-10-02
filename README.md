@@ -48,6 +48,14 @@ Now we can install pdfgui_tools by running the installation script:
 
 - Note: You can uninstall pdfgui_tools from the system using the `./uninstall.py` script.
 
+### poppler-utils
+
+In a special case where your distribution doesn't include the **poppler-utils** package in its repositories, use the `--all` parameter of the installation script to include **poppler-utils** in the installation:
+
+    ./install.py --all
+    
+- Note: If you need to uninstall everything, run `./uninstall.py` again with the `--all` parameter.
+
 Now we just need to check if the program was installed correctly, for this we execute the following:
 
     pdfgui_tools
