@@ -22,9 +22,9 @@
 
 # Sections
 ### Install pdfgui_tools:
-- [Install via deb package](#install-via-deb-package)
+- [Debian-based distributions](#install-via-deb-package)
+- [Arch-based distributions (AUR)](#install-from-aur-yay)
 - [Install using a script](#install-using-a-script)
-- [Install from AUR (yay)](#install-from-aur-yay)
 
 ### Using pdfgui_tools:
 - [Start using pdfgui_tools](#start-using-pdfgui_tools)
@@ -47,6 +47,13 @@ Once we have our **Debian package** installed, simply execute the following comm
 Now we just need to check if the program was installed correctly, for this we execute the following:
 
     pdfgui_tools
+
+## Install from AUR (yay)
+In case you are using an **Arch-based** distribution, you can download pdfgui_tools from **AUR** using `yay`:
+
+    yay -S pdfgui_tools-bin
+
+- <p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
 
 ## Install using a script
 If you do not have a Debian-based distribution or if you have a different package manager, you can use the installation script `./install.py`.
@@ -76,12 +83,7 @@ Now we just need to check if the program was installed correctly, for this we ex
 
 In case you encounter any errors while running the script, please read the error messages provided by the script. Additionally, you will need to install the necessary dependencies to run pdfgui_tools correctly.
 
-## Install from AUR (yay)
-In case you are using an **Arch-based** distribution, you can download pdfgui_tools from **AUR** using `yay`:
 
-    yay -S pdfgui_tools-bin
-
-- <p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
 
 ## Start using pdfgui_tools
 To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like the following should appear:
