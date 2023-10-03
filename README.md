@@ -20,6 +20,19 @@
 
 **pdfgui_tools** is a user interface tool developed in Qt and Python that integrates with **poppler-utils** for PDF document management. This simple and user-friendly tool allows you to merge PDF files, convert PDF to HTML, as well as convert PDF to text. Additionally, in the near future, more functions with additional features will be added.
 
+# Sections
+### Install pdfgui_tools:
+- [Install via deb package](#install-via-deb-package)
+- [Install using a script](#install-using-a-script)
+- [Install from AUR (yay)](#install-from-aur-yay)
+
+### Using pdfgui_tools:
+- [Start using pdfgui_tools](#start-using-pdfgui_tools)
+
+### Important:
+- [Dependencies](#dependencies)
+- [Report bugs or give suggestions](#report-bugs-or-give-suggestions)
+
 ## Install via deb package
 To install pdfgui_tools, you will first need to download the **Debian package**, which can be found at the following link: 
 
@@ -62,6 +75,13 @@ Now we just need to check if the program was installed correctly, for this we ex
     pdfgui_tools
 
 In case you encounter any errors while running the script, please read the error messages provided by the script. Additionally, you will need to install the necessary dependencies to run pdfgui_tools correctly.
+
+## Install from AUR (yay)
+In case you are using an **Arch-based** distribution, you can download pdfgui_tools from **AUR** using `yay`:
+
+    yay -S pdfgui_tools-bin
+
+- <p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
 
 ## Start using pdfgui_tools
 To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like the following should appear:
