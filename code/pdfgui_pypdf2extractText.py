@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 #
-# PDF GUI TOOLS - pdftotext
+# PDF GUI TOOLS - pypdf2extractText
 # 
-# pdftotext - Convert PDF documents into text files.
+# pypdf2extractText - Convert PDF documents into text files.
 # Author: Angel Gabriel Mortera Gual
 # License: GNU GENERAL PUBLIC LICENSE v3
 #
@@ -13,16 +13,17 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
-from pdfgui_tools_utils import Paths
-import os
+from pdfgui_tools_utils import Paths, extract_text
 import subprocess
+import os
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(753, 357)
-        MainWindow.setMinimumSize(QtCore.QSize(753, 357))
-        MainWindow.setMaximumSize(QtCore.QSize(753, 357))
+        MainWindow.resize(753, 361)
+        MainWindow.setMinimumSize(QtCore.QSize(753, 361))
+        MainWindow.setMaximumSize(QtCore.QSize(753, 361))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
@@ -111,7 +112,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "PDF to text"))
-        self.groupBox.setTitle(_translate("MainWindow", "PDF to text"))
+        self.groupBox.setTitle(_translate("MainWindow", "Extract Text"))
         self.button_add.setText(_translate("MainWindow", "Add File"))
         self.button_delete.setText(_translate("MainWindow", "Delete"))
         self.button_convert.setText(_translate("MainWindow", "Convert"))
@@ -141,7 +142,7 @@ class Ui_MainWindow(object):
     def click_add(self):
         if self.listWidget.count() == 1:
             print("One file permited")
-            self.inf_messages("Error", 'Only one file at a time')
+            self.inf_messages("Info", 'Only one file at a time.')
         else:
             options = QFileDialog.Options()
             file_name, _ = QFileDialog.getOpenFileName(MainWindow, "Select File", "", "PDF Files (*.pdf)", options=options)
@@ -163,23 +164,18 @@ class Ui_MainWindow(object):
 
     # Convert PDF to Text
     def convert_text(self):
-
         if self.listWidget.count() < 1:
             print("you need to add file")
             self.inf_messages("Info", 'You need to add file')
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
-            # Command
-            self.command = "pdftotext"
-
             # Notice
             self.label_notice.setText("Convert pdf to text, please wait...")
 
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
-                print(f'File {row}:', item.text())
-                self.command += ' "' + item.text() + '"'
+                pdf = item.text()
 
             options = QFileDialog.Options()
 
@@ -187,14 +183,9 @@ class Ui_MainWindow(object):
             file_name, _ = QFileDialog.getSaveFileName(MainWindow, "Save File", ".txt", "TXT Files (*.txt)", options=options)
 
             if file_name:
-                self.command += " " + str(f'"{file_name}"')
-                print(self.command)
-                print("Save file:", file_name)
-                try:
-                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftotext' command is executed
-                    self.inf_messages("Info", "The process has completed")
-                except subprocess.CalledProcessError:
-                    self.inf_messages("Error", 'Error Executing the command, please verify the name and integrity of the document.')
+                status = extract_text(name_file=file_name, pdf=pdf)
+                if status is not True: self.inf_messages(*status); self.label_notice.setText(""); return
+                self.inf_messages("Info", "The process has completed")
             else:
                 print("Cancel...")
 
@@ -209,7 +200,7 @@ class Ui_MainWindow(object):
         QMessageBox.about(MainWindow, "Help", """Controls:
 - Add a file: Ctrl+A (Only one file at a time)
 - Delete an item: Backspace
-- Convert PDF to text: Ctrl+S
+- Convert PDF to text file: Ctrl+S (It is saved in a created directory)
 """)
                           
 # -------------------------------------------------------------------

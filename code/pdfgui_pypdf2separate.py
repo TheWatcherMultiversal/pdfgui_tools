@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 #
-# PDF GUI TOOLS - pdftotext
+# PDF GUI TOOLS - pypdf2separate
 # 
-# pdftotext - Convert PDF documents into text files.
+# pypdf2separate - Split a PDF document into multiple pages.
 # Author: Angel Gabriel Mortera Gual
 # License: GNU GENERAL PUBLIC LICENSE v3
 #
@@ -13,23 +13,24 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
-from pdfgui_tools_utils import Paths
-import os
+from pdfgui_tools_utils import Paths, separate_pdf
 import subprocess
+import os
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(753, 357)
-        MainWindow.setMinimumSize(QtCore.QSize(753, 357))
-        MainWindow.setMaximumSize(QtCore.QSize(753, 357))
+        MainWindow.resize(753, 376)
+        MainWindow.setMinimumSize(QtCore.QSize(753, 376))
+        MainWindow.setMaximumSize(QtCore.QSize(753, 376))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 261))
+        self.groupBox.setGeometry(QtCore.QRect(20, 20, 711, 271))
         self.groupBox.setObjectName("groupBox")
         self.listWidget = QtWidgets.QListWidget(self.groupBox)
         self.listWidget.setGeometry(QtCore.QRect(20, 60, 671, 111))
@@ -48,11 +49,15 @@ class Ui_MainWindow(object):
         self.button_delete = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.button_delete.setObjectName("button_delete")
         self.horizontalLayout.addWidget(self.button_delete)
-        self.button_convert = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.button_convert.setObjectName("button_convert")
-        self.horizontalLayout.addWidget(self.button_convert)
+        self.button_separate = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.button_separate.setObjectName("button_separate")
+        self.horizontalLayout.addWidget(self.button_separate)
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(20, 250, 58, 18))
+        self.label.setText("")
+        self.label.setObjectName("label")
         self.label_notice = QtWidgets.QLabel(self.centralwidget)
-        self.label_notice.setGeometry(QtCore.QRect(20, 290, 311, 18))
+        self.label_notice.setGeometry(QtCore.QRect(20, 300, 351, 18))
         self.label_notice.setText("")
         self.label_notice.setObjectName("label_notice")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -75,13 +80,13 @@ class Ui_MainWindow(object):
         self.actionAdd_File.setObjectName("actionAdd_File")
         self.actionDelete = QtWidgets.QAction(MainWindow)
         self.actionDelete.setObjectName("actionDelete")
-        self.actionConvert = QtWidgets.QAction(MainWindow)
-        self.actionConvert.setObjectName("actionConvert")
+        self.actionSeparate = QtWidgets.QAction(MainWindow)
+        self.actionSeparate.setObjectName("actionSeparate")
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
         self.menuFile.addAction(self.actionAdd_File)
         self.menuFile.addAction(self.actionDelete)
-        self.menuFile.addAction(self.actionConvert)
+        self.menuFile.addAction(self.actionSeparate)
         self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionabout)
@@ -96,7 +101,7 @@ class Ui_MainWindow(object):
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
-        self.actionConvert.triggered.connect(self.convert_text)
+        self.actionSeparate.triggered.connect(self.separate_pdf)
         self.actionabout.triggered.connect(self._about)
         self.actionHelp.triggered.connect(self._help)
         self.actionExit.triggered.connect(self._exit)
@@ -104,21 +109,21 @@ class Ui_MainWindow(object):
         # Buttons
         self.button_add.clicked.connect(self.click_add)
         self.button_delete.clicked.connect(self.click_delete)
-        self.button_convert.clicked.connect(self.convert_text)
+        self.button_separate.clicked.connect(self.separate_pdf)
 
 # ==============================================================+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "PDF to text"))
-        self.groupBox.setTitle(_translate("MainWindow", "PDF to text"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Separate PDF"))
+        self.groupBox.setTitle(_translate("MainWindow", "Separate PDF"))
         self.button_add.setText(_translate("MainWindow", "Add File"))
         self.button_delete.setText(_translate("MainWindow", "Delete"))
-        self.button_convert.setText(_translate("MainWindow", "Convert"))
+        self.button_separate.setText(_translate("MainWindow", "Separate"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionHelp.setText(_translate("MainWindow", "Help PDF to text"))
-        self.actionHelp.setStatusTip(_translate("MainWindow", "Help PDF to text"))
+        self.actionHelp.setText(_translate("MainWindow", "Help Separate PDF"))
+        self.actionHelp.setStatusTip(_translate("MainWindow", "Help Separate PDF"))
         self.actionHelp.setShortcut(_translate("MainWindow", "F1"))
         self.actionabout.setText(_translate("MainWindow", "about"))
         self.actionAdd_File.setText(_translate("MainWindow", "Add File"))
@@ -127,13 +132,12 @@ class Ui_MainWindow(object):
         self.actionDelete.setText(_translate("MainWindow", "Delete"))
         self.actionDelete.setStatusTip(_translate("MainWindow", "Delete"))
         self.actionDelete.setShortcut(_translate("MainWindow", "Backspace"))
-        self.actionConvert.setText(_translate("MainWindow", "Convert"))
-        self.actionConvert.setStatusTip(_translate("MainWindow", "Convert to text"))
-        self.actionConvert.setShortcut(_translate("MainWindow", "Ctrl+S"))
+        self.actionSeparate.setText(_translate("MainWindow", "Separate"))
+        self.actionSeparate.setStatusTip(_translate("MainWindow", "Separate PDF"))
+        self.actionSeparate.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setStatusTip(_translate("MainWindow", "Exit"))
         self.actionExit.setShortcut(_translate("MainWindow", "Esc"))
-
 
 # ======================================| Modify |=================================================================================+
 
@@ -141,7 +145,7 @@ class Ui_MainWindow(object):
     def click_add(self):
         if self.listWidget.count() == 1:
             print("One file permited")
-            self.inf_messages("Error", 'Only one file at a time')
+            self.inf_messages("Info", 'Only one file at a time.')
         else:
             options = QFileDialog.Options()
             file_name, _ = QFileDialog.getOpenFileName(MainWindow, "Select File", "", "PDF Files (*.pdf)", options=options)
@@ -161,40 +165,32 @@ class Ui_MainWindow(object):
             else:
                 print("No item selected for deletion.")
 
-    # Convert PDF to Text
-    def convert_text(self):
-
+    # Separate PDF
+    def separate_pdf(self):
         if self.listWidget.count() < 1:
             print("you need to add file")
             self.inf_messages("Info", 'You need to add file')
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
-            # Command
-            self.command = "pdftotext"
-
             # Notice
-            self.label_notice.setText("Convert pdf to text, please wait...")
+            self.label_notice.setText("Separate pdf, please wait...")
 
             for row in range(self.listWidget.count()):
                 item = self.listWidget.item(row)
-                print(f'File {row}:', item.text())
-                self.command += ' "' + item.text() + '"'
+                pdf = item.text()
 
             options = QFileDialog.Options()
+            options |= QFileDialog.ShowDirsOnly
+            options |= QFileDialog.DontUseNativeDialog
 
             # Asks where to save and how to name the file, obtains the path
-            file_name, _ = QFileDialog.getSaveFileName(MainWindow, "Save File", ".txt", "TXT Files (*.txt)", options=options)
+            directory, _ = QFileDialog.getSaveFileName(MainWindow, "Create Directory", "", "", options=options)
 
-            if file_name:
-                self.command += " " + str(f'"{file_name}"')
-                print(self.command)
-                print("Save file:", file_name)
-                try:
-                    subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftotext' command is executed
-                    self.inf_messages("Info", "The process has completed")
-                except subprocess.CalledProcessError:
-                    self.inf_messages("Error", 'Error Executing the command, please verify the name and integrity of the document.')
+            if directory:
+                status = separate_pdf(pdf=pdf, dest=directory)
+                if status is not True: self.inf_messages(*status); self.label.setText(""); return
+                self.inf_messages("Info", "The process has completed")
             else:
                 print("Cancel...")
 
@@ -209,7 +205,7 @@ class Ui_MainWindow(object):
         QMessageBox.about(MainWindow, "Help", """Controls:
 - Add a file: Ctrl+A (Only one file at a time)
 - Delete an item: Backspace
-- Convert PDF to text: Ctrl+S
+- Separate PDF: Ctrl+S (It is saved in a created directory)
 """)
                           
 # -------------------------------------------------------------------

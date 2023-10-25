@@ -130,14 +130,14 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionHelp_PDF_to_html"/>
+    <addaction name="actionHelp"/>
     <addaction name="actionabout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionHelp_PDF_to_html">
+  <action name="actionHelp">
    <property name="text">
     <string>Help PDF to html</string>
    </property>

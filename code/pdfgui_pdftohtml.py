@@ -13,6 +13,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
+from pdfgui_tools_utils import Paths
 import os
 import subprocess
 
@@ -23,7 +24,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(753, 357))
         MainWindow.setMaximumSize(QtCore.QSize(753, 357))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
+        icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -64,8 +65,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionHelp_PDF_to_html = QtWidgets.QAction(MainWindow)
-        self.actionHelp_PDF_to_html.setObjectName("actionHelp_PDF_to_html")
+        self.actionHelp = QtWidgets.QAction(MainWindow)
+        self.actionHelp.setObjectName("actionHelp")
         self.actionabout = QtWidgets.QAction(MainWindow)
         self.actionabout.setObjectName("actionabout")
         self.actionAdd_File = QtWidgets.QAction(MainWindow)
@@ -80,7 +81,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDelete)
         self.menuFile.addAction(self.actionConvert)
         self.menuFile.addAction(self.actionExit)
-        self.menuHelp.addAction(self.actionHelp_PDF_to_html)
+        self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionabout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -90,14 +91,12 @@ class Ui_MainWindow(object):
 
 # =============| Modify |=======================================+
 
-        # User input connection to functions:
-
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
         self.actionConvert.triggered.connect(self.convert_html)
         self.actionabout.triggered.connect(self._about)
-        self.actionHelp_PDF_to_html.triggered.connect(self._help)
+        self.actionHelp.triggered.connect(self._help)
         self.actionExit.triggered.connect(self._exit)
 
         # Buttons
@@ -116,9 +115,9 @@ class Ui_MainWindow(object):
         self.button_convert.setText(_translate("MainWindow", "Convert"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionHelp_PDF_to_html.setText(_translate("MainWindow", "Help PDF to html"))
-        self.actionHelp_PDF_to_html.setStatusTip(_translate("MainWindow", "Help PDF to html"))
-        self.actionHelp_PDF_to_html.setShortcut(_translate("MainWindow", "F1"))
+        self.actionHelp.setText(_translate("MainWindow", "Help PDF to html"))
+        self.actionHelp.setStatusTip(_translate("MainWindow", "Help PDF to html"))
+        self.actionHelp.setShortcut(_translate("MainWindow", "F1"))
         self.actionabout.setText(_translate("MainWindow", "about"))
         self.actionAdd_File.setText(_translate("MainWindow", "Add File"))
         self.actionAdd_File.setStatusTip(_translate("MainWindow", "Add File"))
@@ -139,7 +138,7 @@ class Ui_MainWindow(object):
     def click_add(self):
         if self.listWidget.count() == 1:
             print("One file permited")
-            QMessageBox.critical(MainWindow, "Error", 'Only one file at a time.', QMessageBox.Ok)
+            self.inf_messages("Info", 'Only one file at a time')
         else:
             options = QFileDialog.Options()
             file_name, _ = QFileDialog.getOpenFileName(MainWindow, "Select File", "", "PDF Files (*.pdf)", options=options)
@@ -165,7 +164,7 @@ class Ui_MainWindow(object):
 
         if self.listWidget.count() < 1:
             print("you need to add file")
-            QMessageBox.critical(MainWindow, "Error", 'You need to add file', QMessageBox.Ok)
+            self.inf_messages("Info", 'You need to add file')
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
@@ -191,9 +190,9 @@ class Ui_MainWindow(object):
                 print("Save file:", file_name)
                 try:
                     subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdftohtml' command is executed
-                    sys.exit()#---------------------------------------------------------------> The application is closed
+                    self.inf_messages("Info", "The process has completed")
                 except subprocess.CalledProcessError:
-                    QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please verify the name and integrity of the document.', QMessageBox.Ok)
+                    self.inf_messages("Error", 'Error Executing the command, please verify the name and integrity of the document')
             else:
                 print("Cancel...")
 
@@ -201,7 +200,7 @@ class Ui_MainWindow(object):
 
     # Open the 'About' window
     def _about(self):
-        os.system('python3 /usr/share/pdfgui_tools/about.py')
+        os.system(Paths["about_window"])
 
     # Function Help
     def _help(self):
@@ -220,6 +219,13 @@ class Ui_MainWindow(object):
         print('Exit...')
         sys.exit()
 
+    # Messages
+    def inf_messages(self, title, message):
+        if title == "Error":
+            QMessageBox.critical(MainWindow, title, message, QMessageBox.Ok)
+        elif title == "Info":
+            QMessageBox.information(MainWindow, title, message, QMessageBox.Ok)
+
 # =================================================================================================================================+
 
 
@@ -230,7 +236,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    with open("/usr/share/pdfgui_tools/styles/styles.qss", "r") as f:#-------------> Window style file
+    with open(Paths["styles"], "r") as f:#-------------> Window style file
         _style = f.read()
         app.setStyleSheet(_style)
     sys.exit(app.exec_())

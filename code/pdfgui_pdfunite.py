@@ -13,6 +13,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
+from pdfgui_tools_utils import Paths
 import subprocess
 import os
 
@@ -24,7 +25,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
+        icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -89,8 +90,8 @@ class Ui_MainWindow(object):
         self.actionSave.setObjectName("actionSave")
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
-        self.actionHelp_Merge_PDF = QtWidgets.QAction(MainWindow)
-        self.actionHelp_Merge_PDF.setObjectName("actionHelp_Merge_PDF")
+        self.actionHelp = QtWidgets.QAction(MainWindow)
+        self.actionHelp.setObjectName("actionHelp")
         self.actionAbout = QtWidgets.QAction(MainWindow)
         self.actionAbout.setObjectName("actionAbout")
         self.menuFile.addAction(self.actionAdd_File)
@@ -99,7 +100,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDown)
         self.menuFile.addAction(self.actionSave)
         self.menuFile.addAction(self.actionExit)
-        self.menuHelp.addAction(self.actionHelp_Merge_PDF)
+        self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionAbout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -109,15 +110,13 @@ class Ui_MainWindow(object):
 
 # =============| Modify |=======================================+
 
-        # User input connection to functions:
-
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
         self.actionUp.triggered.connect(self.move_up)
         self.actionDown.triggered.connect(self.move_down)
         self.actionSave.triggered.connect(self.merge_pdf)
-        self.actionHelp_Merge_PDF.triggered.connect(self._help)
+        self.actionHelp.triggered.connect(self._help)
         self.actionAbout.triggered.connect(self._about)
         self.actionExit.triggered.connect(self._exit)
 
@@ -156,9 +155,9 @@ class Ui_MainWindow(object):
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSave.setStatusTip(_translate("MainWindow", "Merge PDFs"))
         self.actionSave.setShortcut(_translate("MainWindow", "Ctrl+S"))
-        self.actionHelp_Merge_PDF.setText(_translate("MainWindow", "Help Merge PDF"))
-        self.actionHelp_Merge_PDF.setStatusTip(_translate("MainWindow", "Help Merge PDF"))
-        self.actionHelp_Merge_PDF.setShortcut(_translate("MainWindow", "F1"))
+        self.actionHelp.setText(_translate("MainWindow", "Help Merge PDF"))
+        self.actionHelp.setStatusTip(_translate("MainWindow", "Help Merge PDF"))
+        self.actionHelp.setShortcut(_translate("MainWindow", "F1"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setStatusTip(_translate("MainWindow", "Exit"))
@@ -213,7 +212,7 @@ class Ui_MainWindow(object):
 
         if self.listWidget.count() < 2:
             print("Add more files")
-            QMessageBox.critical(MainWindow, "Error", 'Add at least two files', QMessageBox.Ok)
+            self.inf_messages("Info", 'Add at least two files')
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
@@ -239,9 +238,9 @@ class Ui_MainWindow(object):
                 print("Save file:", file_name)
                 try:
                     subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdfunite' command is executed
-                    sys.exit()#---------------------------------------------------------------> The application is closed
+                    self.inf_messages("Info", "The process has completed")
                 except subprocess.CalledProcessError:
-                    QMessageBox.critical(MainWindow, "Error", 'Error Executing the command, please check the name of the final file and the integrity of your other files.', QMessageBox.Ok)
+                    self.inf_messages("Error", 'Error Executing the command, please check the name of the final file and the integrity of your other files.')
             else:
                 print("Cancel...")
 
@@ -249,7 +248,7 @@ class Ui_MainWindow(object):
 
     # Open the 'About' window
     def _about(self):
-        os.system('python3 /usr/share/pdfgui_tools/about.py')
+        os.system(Paths["about_window"])
 
     # Function Help
     def _help(self):
@@ -269,6 +268,13 @@ class Ui_MainWindow(object):
         print('Exit...')
         sys.exit()
 
+    # Messages
+    def inf_messages(self, title, message):
+        if title == "Error":
+            QMessageBox.critical(MainWindow, title, message, QMessageBox.Ok)
+        elif title == "Info":
+            QMessageBox.information(MainWindow, title, message, QMessageBox.Ok)
+
 # =================================================================================================================================+
 
 
@@ -279,7 +285,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    with open("/usr/share/pdfgui_tools/styles/styles.qss", "r") as f:#-------------> Window style file
+    with open(Paths["styles"], "r") as f:#-------------> Window style file
         _style = f.read()
         app.setStyleSheet(_style)
     sys.exit(app.exec_())

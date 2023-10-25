@@ -1,0 +1,150 @@
+/* styles.qss */
+
+/* All window */
+QWidget {
+    background-color: #1e1e1e;
+    color: #ffffff; 
+}
+
+/* List Widget */
+QListWidget::item {
+    height: 50px;
+}
+
+QListWidget::item:selected {
+    background-color: #393939; 
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #3c6ae7;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3159c5;
+}
+
+QPushButton:pressed {
+    background-color: #263aa9;
+}
+
+QPushButton#pypdf2_button {
+    background-color: #108016;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#pypdf2_button:hover {
+    background-color: #0e7413;
+}
+
+QPushButton#pypdf2_button:pressed {
+    background-color: #0e6613;
+}
+
+/* Window Buttons */
+QPushButton#button_merge {
+    background-color: #108016;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_merge:hover {
+    background-color: #0e7413;
+}
+
+QPushButton#button_merge:pressed {
+    background-color: #0e6613;
+}
+
+QPushButton#button_encrypt {
+    background-color: #108016;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_encrypt:hover {
+    background-color: #0e7413;
+}
+
+QPushButton#button_encrypt:pressed {
+    background-color: #0e6613;
+}
+
+QPushButton#button_decrypt {
+    background-color: #c02d00;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_decrypt:hover {
+    background-color: #a82700;
+}
+
+QPushButton#button_decrypt:pressed {
+    background-color: #8d2100;
+}
+
+
+
+/* Group Box */
+QGroupBox {
+    border: 2px solid #e74c3c;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1e1e1e;
+}
+
+QGroupBox:title {
+    padding: 5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Check Box */
+QCheckBox {
+    font-size: 14px;
+    color: #ffffff;
+    padding: 5px;
+}
+
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked {
+    border: 2px solid #555;
+    background-color: #333;
+}
+
+QCheckBox::indicator:checked {
+    border: 2px solid #00cc4e;
+    background-color: rgb(23, 207, 121);
+}
+
+QCheckBox::indicator:unchecked:hover,
+QCheckBox::indicator:checked:hover {
+    border: 2px solid #00cc4e;
+}
+

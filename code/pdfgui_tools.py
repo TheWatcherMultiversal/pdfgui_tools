@@ -11,16 +11,17 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pdfgui_tools_utils import Paths, version_app
 import os
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(830, 502)
+        MainWindow.resize(830, 516)
         MainWindow.setMinimumSize(QtCore.QSize(381, 339))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
+        icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -59,7 +60,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("/home/patatasfritas/Escritorio/Code/pdfgui_tools/icons/pdfguitools.svg"))
+        self.label_2.setPixmap(QtGui.QPixmap(Paths["icon_app"]))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_7.addWidget(self.label_2)
@@ -132,9 +133,6 @@ class Ui_MainWindow(object):
         self.pypdf2separate_button = QtWidgets.QPushButton(self.PyPDF2_page)
         self.pypdf2separate_button.setObjectName("pypdf2separate_button")
         self.verticalLayout_9.addWidget(self.pypdf2separate_button)
-        self.pypdf2extract_image_button = QtWidgets.QPushButton(self.PyPDF2_page)
-        self.pypdf2extract_image_button.setObjectName("pypdf2extract_image_button")
-        self.verticalLayout_9.addWidget(self.pypdf2extract_image_button)
         self.pypdf2extract_text_button = QtWidgets.QPushButton(self.PyPDF2_page)
         self.pypdf2extract_text_button.setObjectName("pypdf2extract_text_button")
         self.verticalLayout_9.addWidget(self.pypdf2extract_text_button)
@@ -167,11 +165,6 @@ class Ui_MainWindow(object):
 
 # =============| Modify |=======================================+
 
-        # Path utilities:
-        self.path_utilities    = ("/usr/share/pdfgui_tools")
-        self.path_popplerutils = (f"{self.path_utilities}/poppler_utils")
-        self.path_pypdf2utils  = (f"{self.path_utilities}/pypdf2_utils")
-
         # Actions:
         self.actionAbout.triggered.connect(self._about)
 
@@ -189,7 +182,6 @@ class Ui_MainWindow(object):
         # Buttons - PyPDF2:
         self.pypdf2merge_button.clicked.connect(self.pypdf2_merge)
         self.pypdf2separate_button.clicked.connect(self.pypdf2_separate)
-        self.pypdf2extract_image_button.clicked.connect(self.pypdf2_extractimage)
         self.pypdf2extract_text_button.clicked.connect(self.pypdf2_extrattext)
         self.pypdf2encryption_button.clicked.connect(self.pypdf2_encryption)
 
@@ -200,7 +192,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "PDF GUI Tools"))
         self.label.setText(_translate("MainWindow", "PDF GUI Tools"))
         self.groupBox.setTitle(_translate("MainWindow", "Tool utilities"))
-        self.label_3.setText(_translate("MainWindow", "PDF GUI TOOLS V1.1.0"))
+        self.label_3.setText(_translate("MainWindow", f"PDF GUI TOOLS V{version_app}"))
         self.poppler_button.setText(_translate("MainWindow", "Poppler"))
         self.pypdf2_button.setText(_translate("MainWindow", "PyPDF2"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Utilities"))
@@ -212,7 +204,6 @@ class Ui_MainWindow(object):
         self.pdftotext_button.setText(_translate("MainWindow", "PDF to text"))
         self.pypdf2merge_button.setText(_translate("MainWindow", "Merge PDFs"))
         self.pypdf2separate_button.setText(_translate("MainWindow", "Separate PDF"))
-        self.pypdf2extract_image_button.setText(_translate("MainWindow", "Extract Images"))
         self.pypdf2extract_text_button.setText(_translate("MainWindow", "Extract Text"))
         self.pypdf2encryption_button.setText(_translate("MainWindow", "Encryption and Decryption PDFs"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
@@ -228,31 +219,29 @@ class Ui_MainWindow(object):
     # >> Poppler-utils:
 
     # Open the 'Merge PDFs' window
-    def pdfunite(self):    os.system(f'{self.path_popplerutils}/pdfgui_pdfunite.py')
+    def pdfunite(self):    os.system(f'{Paths["poppler_path"]}/pdfgui_pdfunite.py')
     # Open the 'Separate PDF' window
-    def pdfseparate(self): os.system(f'{self.path_popplerutils}/pdfgui_pdfseparate.py')
+    def pdfseparate(self): os.system(f'{Paths["poppler_path"]}/pdfgui_pdfseparate.py')
     # Open the 'PDF to multimedia file' window
-    def pdftocairo(self):  os.system(f'{self.path_popplerutils}/pdfgui_pdftocairo.py')
+    def pdftocairo(self):  os.system(f'{Paths["poppler_path"]}/pdfgui_pdftocairo.py')
     # Open the 'PDF to html' window
-    def pdftohtml(self):   os.system(f'{self.path_popplerutils}/pdfgui_pdftohtml.py')
+    def pdftohtml(self):   os.system(f'{Paths["poppler_path"]}/pdfgui_pdftohtml.py')
     # Open the 'PDF to text' window
-    def pdftotext(self):   os.system(f'{self.path_popplerutils}/pdfgui_pdftotext.py')
+    def pdftotext(self):   os.system(f'{Paths["poppler_path"]}/pdfgui_pdftotext.py')
 
     # >> PyPDF2:
     
     # Open the 'Merge PDFs' window
-    def pypdf2_merge(self):        os.system(f'{self.path_pypdf2utils}/pdfgui_pypdf2_merge.py')
+    def pypdf2_merge(self):        os.system(f'{Paths["pypdf2_path"]}/pdfgui_pypdf2merge.py')
     # Open the 'Separate PDF' window
-    def pypdf2_separate(self):     os.system(f'{self.path_pypdf2utils}/pdfgui_pypdf2_separate.py')
-    # Open the 'Extract Images' window
-    def pypdf2_extractimage(self): os.system(f'{self.path_pypdf2utils}/pdfgui_pypdf2_extractimage.py')
+    def pypdf2_separate(self):     os.system(f'{Paths["pypdf2_path"]}/pdfgui_pypdf2separate.py')
     # Open the 'Extract Text' window
-    def pypdf2_extrattext(self):   os.system(f'{self.path_pypdf2utils}/pdfgui_pypdf2_extracttext.py')
+    def pypdf2_extrattext(self):   os.system(f'{Paths["pypdf2_path"]}/pdfgui_pypdf2extractText.py')
     # Open the 'Encryption and Decryption PDFs' window
-    def pypdf2_encryption(self):   os.system(f'{self.path_pypdf2utils}/pdfgui_pypdf2_encryption.py')
+    def pypdf2_encryption(self):   os.system(f'{Paths["pypdf2_path"]}/pdfgui_pypdf2encrypt.py')
 
     # >> About:
-    def _about(self): os.system(f'{self.path_utilities}/about.py')
+    def _about(self): os.system(Paths["about_window"])
 
 # =================================================================================================================================+
 
@@ -263,7 +252,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    with open("/usr/share/pdfgui_tools/styles/styles.qss", "r") as f:#-------------> Window style file
+    with open(Paths["styles"], "r") as f:#-------------> Window style file
         _style = f.read()
         app.setStyleSheet(_style)
     sys.exit(app.exec_())

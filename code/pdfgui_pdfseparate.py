@@ -13,8 +13,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
+from pdfgui_tools_utils import Paths, spinBox_range
 import subprocess
 import os
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -23,7 +25,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(753, 421))
         MainWindow.setMaximumSize(QtCore.QSize(753, 421))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/usr/share/pdfgui_tools/assets/pdfguitools.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
+        icon.addPixmap(QtGui.QPixmap(Paths["icon_app"]), QtGui.QIcon.Normal, QtGui.QIcon.Off)#-----> Icon App
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -65,14 +67,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.spin_start = QtWidgets.QSpinBox(self.horizontalLayoutWidget_2)
         self.spin_start.setObjectName("spin_start")
-        self.spin_start.setMaximum(999)#------------------------------------------------> Maximum allowed value for the spinbox.
         self.horizontalLayout_2.addWidget(self.spin_start)
         self.check_start = QtWidgets.QCheckBox(self.horizontalLayoutWidget_2)
         self.check_start.setObjectName("check_start")
         self.horizontalLayout_2.addWidget(self.check_start)
         self.spin_final = QtWidgets.QSpinBox(self.horizontalLayoutWidget_2)
         self.spin_final.setObjectName("spin_final")
-        self.spin_final.setMaximum(999)#------------------------------------------------> Maximum allowed value for the spinbox.
         self.horizontalLayout_2.addWidget(self.spin_final)
         self.check_final = QtWidgets.QCheckBox(self.horizontalLayoutWidget_2)
         self.check_final.setObjectName("check_final")
@@ -93,8 +93,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionHelp_SeparatePDF = QtWidgets.QAction(MainWindow)
-        self.actionHelp_SeparatePDF.setObjectName("actionHelp_SeparatePDF")
+        self.actionHelp = QtWidgets.QAction(MainWindow)
+        self.actionHelp.setObjectName("actionHelp")
         self.actionabout = QtWidgets.QAction(MainWindow)
         self.actionabout.setObjectName("actionabout")
         self.actionAdd_File = QtWidgets.QAction(MainWindow)
@@ -109,7 +109,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDelete)
         self.menuFile.addAction(self.actionSeparate)
         self.menuFile.addAction(self.actionExit)
-        self.menuHelp.addAction(self.actionHelp_SeparatePDF)
+        self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionabout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -119,15 +119,20 @@ class Ui_MainWindow(object):
 
 # =============| Modify |=======================================+
 
-        # User input connection to functions:
-
         # Actions
         self.actionAdd_File.triggered.connect(self.click_add)
         self.actionDelete.triggered.connect(self.click_delete)
         self.actionSeparate.triggered.connect(self.separate_pdf)
         self.actionabout.triggered.connect(self._about)
-        self.actionHelp_SeparatePDF.triggered.connect(self._help)
+        self.actionHelp.triggered.connect(self._help)
         self.actionExit.triggered.connect(self._exit)
+
+        # spinBox
+        # --> Max range:
+        self.spin_start.setMinimum(spinBox_range[0])
+        self.spin_final.setMinimum(spinBox_range[0])
+        self.spin_start.setMaximum(spinBox_range[1])
+        self.spin_final.setMaximum(spinBox_range[1])
 
         # Buttons
         self.button_add.clicked.connect(self.click_add)
@@ -149,9 +154,9 @@ class Ui_MainWindow(object):
         self.check_final.setText(_translate("MainWindow", "Final"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionHelp_SeparatePDF.setText(_translate("MainWindow", "Help Separate PDF"))
-        self.actionHelp_SeparatePDF.setStatusTip(_translate("MainWindow", "Help Separate PDF"))
-        self.actionHelp_SeparatePDF.setShortcut(_translate("MainWindow", "F1"))
+        self.actionHelp.setText(_translate("MainWindow", "Help Separate PDF"))
+        self.actionHelp.setStatusTip(_translate("MainWindow", "Help Separate PDF"))
+        self.actionHelp.setShortcut(_translate("MainWindow", "F1"))
         self.actionabout.setText(_translate("MainWindow", "about"))
         self.actionAdd_File.setText(_translate("MainWindow", "Add File"))
         self.actionAdd_File.setStatusTip(_translate("MainWindow", "Add File"))
@@ -172,7 +177,7 @@ class Ui_MainWindow(object):
     def click_add(self):
         if self.listWidget.count() == 1:
             print("One file permited")
-            QMessageBox.critical(MainWindow, "Error", 'Only one file at a time.', QMessageBox.Ok)
+            self.inf_messages("Info", 'Only one file at a time.')
         else:
             options = QFileDialog.Options()
             file_name, _ = QFileDialog.getOpenFileName(MainWindow, "Select File", "", "PDF Files (*.pdf)", options=options)
@@ -197,20 +202,20 @@ class Ui_MainWindow(object):
 
         if self.listWidget.count() < 1:
             print("you need to add file")
-            QMessageBox.critical(MainWindow, "Error", 'You need to add file', QMessageBox.Ok)
+            self.inf_messages("Info", 'You need to add file')
         else:
             try:
                 item = self.listWidget.item(0)
                 subprocess.run([f'xdg-open "{item.text()}"'], check=True, shell=True)#------> Use xdg-open to open the default PDF viewer
             except subprocess.CalledProcessError:
-                QMessageBox.critical(MainWindow, "Error", 'The PDF file could not be viewed', QMessageBox.Ok)
+                self.inf_messages("Error", 'The PDF file could not be viewed')
 
     # Separate PDF
     def separate_pdf(self):
 
         if self.listWidget.count() < 1:
             print("you need to add file")
-            QMessageBox.critical(MainWindow, "Error", 'You need to add file', QMessageBox.Ok)
+            self.inf_messages("Info", 'You need to add file')
 
         # Concatenate the paths of the files stored in the list to the 'self.command' command
         else:
@@ -242,7 +247,7 @@ class Ui_MainWindow(object):
             options |= QFileDialog.DontUseNativeDialog
 
             # Asks where to save and how to name the file, obtains the path
-            directory, _ = QFileDialog.getSaveFileName(MainWindow, "Save Directory", "", "", options=options)
+            directory, _ = QFileDialog.getSaveFileName(MainWindow, "Create Directory", "", "", options=options)
             directory_name = str(os.path.basename(directory))
 
             if directory:
@@ -251,23 +256,23 @@ class Ui_MainWindow(object):
                 try:
                     subprocess.run([f'mkdir {directory}'], check=True, shell=True)#-----------> The 'mkdir' command is executed
                 except subprocess.CalledProcessError:
-                    QMessageBox.critical(MainWindow, "Error", 'Error while creating the directory, please try with another name.', QMessageBox.Ok)
+                    self.inf_messages("Error", 'Error while creating the directory, please try with another name')
 
                 self.command += " " + str(f'"{directory}/{directory_name}%d.pdf"')
                 print(self.command)
                 print("Save file:", directory)
                 try:
                     subprocess.run([self.command], check=True, shell=True)#-------------------> The 'pdfseparate' command is executed
-                    sys.exit()#---------------------------------------------------------------> The application is closed
+                    self.inf_messages("Info", "The process has completed")
                 except subprocess.CalledProcessError:
-                    QMessageBox.critical(MainWindow, "Error", 'Verify the options and file integrity, use the F1 key for help.', QMessageBox.Ok)
+                    self.inf_messages("Error", 'Verify the options and file integrity, use the F1 key for help')
             else:
                 print("Cancel...")
 
             self.label_notice.setText("")
 
     def _about(self):
-        os.system('python3 /usr/share/pdfgui_tools/about.py')
+        os.system(Paths["about_window"])
 
     def _help(self):
 
@@ -275,8 +280,8 @@ class Ui_MainWindow(object):
         QMessageBox.about(MainWindow, "Help", """Controls:
 - Add a file: Ctrl+A (Only one file at a time)
 - Delete an item: Backspace
-- View PDF: View the file in your default PDF viewer
-- Separate PDF: Ctrl+S (It is saved in a directory)
+- View PDF: Open the PDF document in your default PDF document viewer using xdg-open.
+- Separate PDF: Ctrl+S (It is saved in a created directory)
                           
 Options:
 - Start: Specify the starting page for splitting.
@@ -296,6 +301,13 @@ consistent.
         print('Exit...')
         sys.exit()
 
+    # Messages
+    def inf_messages(self, title, message):
+        if title == "Error":
+            QMessageBox.critical(MainWindow, title, message, QMessageBox.Ok)
+        elif title == "Info":
+            QMessageBox.information(MainWindow, title, message, QMessageBox.Ok)
+
 # =================================================================================================================================+
 
 
@@ -306,7 +318,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    with open("/usr/share/pdfgui_tools/styles/styles.qss", "r") as f:#-------------> Window style file
+    with open(Paths["styles"], "r") as f:#-------------> Window style file
         _style = f.read()
         app.setStyleSheet(_style)
     sys.exit(app.exec_())

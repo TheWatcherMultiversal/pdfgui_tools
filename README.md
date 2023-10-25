@@ -18,7 +18,7 @@
 <img src="./icons/pdfguitools.svg" width="100">
 </div>
 
-**pdfgui_tools** is a user interface tool developed in Qt and Python that integrates with **poppler-utils** for PDF document management. This simple and user-friendly tool allows you to merge PDF files, convert PDF to HTML, as well as convert PDF to text. Additionally, in the near future, more functions with additional features will be added.
+**pdfgui_tools** is a user interface tool developed in Qt and Python that integrates with **poppler-utils** and **PyPDF2** for PDF document management. It's a **simple** and **user-friendly** tool that includes various utilities such as merging PDFs, splitting PDFs, converting them to multimedia files like PNG or SVG, encrypting or decrypting, among other utilities included in pdfgui_tools.
 
 # Sections
 ### Install pdfgui_tools:
@@ -36,11 +36,11 @@
 ## Install via deb package
 To install pdfgui_tools, you will first need to download the **Debian package**, which can be found at the following link: 
 
-<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v1.0.4/pdfgui_tools_stable-release_1.0.4_all.deb" target="_blank">📦 Download deb package</a>
+<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v1.1.0/pdfgui_tools_stable-release_1.1.0_all.deb" target="_blank">📦 Download deb package</a>
 
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
-    sudo dpkg -i pdfgui_tools_stable-release_1.0.4_all.deb
+    sudo dpkg -i pdfgui_tools_stable-release_1.1.0_all.deb
     
 - Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
 
@@ -58,15 +58,15 @@ In case you are using an **Arch-based** distribution, you can download pdfgui_to
 ## Install using a script
 If you do not have a Debian-based distribution or if you have a different package manager, you can use the installation script `./install.py`.
 
-To do this, first make sure that the `./install.py` script and the `./uninstall.py` script have the necessary permissions to run on the system:
+To do this, first make sure that the `./install.py` script have the necessary permissions to run on the system:
 
-    chmod 755 ./install.py ./uninstall.py
+    chmod 755 ./install.py
 
 Now we can install pdfgui_tools by running the installation script:
 
     ./install.py
 
-- Note: You can uninstall pdfgui_tools from the system using the `./uninstall.py` script.
+- Note: To uninstall pdfgui_tools, you can use `./install.py --uninstall`  to remove pdfgui_tools from the system.
 
 ### poppler-utils
 
@@ -75,7 +75,7 @@ In a special case where your distribution doesn't include the **poppler-utils** 
     ./install.py --all
 
 - <p>The <b>poppler-utils</b> package included in the installation script is designed for the <b>amd64</b> architecture. If you need this package for a different architecture, we recommend checking the official <a href="https://poppler.freedesktop.org/" >poppler-utils</a> page and obtaining the source code.</p>
-- If you need to uninstall everything, run `./uninstall.py` again with the `--all` parameter.
+- If you need to uninstall everything, run `./install.py` again with the `--remove-all` parameter.
 
 Now we just need to check if the program was installed correctly, for this we execute the following:
 
@@ -102,6 +102,7 @@ A window appears displaying the application's function. Each window is similar, 
 Before being able to use pdfgui_tools, you need to have the following **dependencies** installed on your system for the program to function properly:
 
 - **poppler-utils**
+- **python3-pypdf2**
 - **python3-pyqt5**
 - **qtbase5-dev**
 
