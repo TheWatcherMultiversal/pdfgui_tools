@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=PDF GUI Tools
+GenericName=PDF GUI Tools
+Comment=PDF GUI Tools
+TryExec=pdfgui_tools
+Exec=pdfgui_tools
+Icon=/usr/share/pdfgui_tools/assets/pdfguitools.svg
+Type=Application
+Terminal=false
+Categories=Office;Presentation;
+StartupNotify=true
+Keywords=pdf;pdfgui;tools

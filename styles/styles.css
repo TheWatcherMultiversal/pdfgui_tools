@@ -1,4 +1,4 @@
-/* styles.qss */
+/* styles.css */
 
 /* All window */
 QWidget {
@@ -33,26 +33,10 @@ QPushButton:pressed {
     background-color: #263aa9;
 }
 
-QPushButton#pypdf2_button {
-    background-color: #108016;
-    color: #ffffff;
-    border: none;
-    padding: 6px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-QPushButton#pypdf2_button:hover {
-    background-color: #0e7413;
-}
-
-QPushButton#pypdf2_button:pressed {
-    background-color: #0e6613;
-}
-
 /* Window Buttons */
+
 QPushButton#button_merge {
-    background-color: #108016;
+    background-color: #b65200;
     color: #ffffff;
     border: none;
     padding: 6px 20px;
@@ -61,11 +45,11 @@ QPushButton#button_merge {
 }
 
 QPushButton#button_merge:hover {
-    background-color: #0e7413;
+    background-color: #9c4600;
 }
 
 QPushButton#button_merge:pressed {
-    background-color: #0e6613;
+    background-color: #853c00;
 }
 
 QPushButton#button_encrypt {
@@ -86,7 +70,7 @@ QPushButton#button_encrypt:pressed {
 }
 
 QPushButton#button_decrypt {
-    background-color: #c02d00;
+    background-color: #108016;
     color: #ffffff;
     border: none;
     padding: 6px 20px;
@@ -95,14 +79,12 @@ QPushButton#button_decrypt {
 }
 
 QPushButton#button_decrypt:hover {
-    background-color: #a82700;
+    background-color: #0e7413;
 }
 
 QPushButton#button_decrypt:pressed {
-    background-color: #8d2100;
+    background-color: #0e6613;
 }
-
-
 
 /* Group Box */
 QGroupBox {

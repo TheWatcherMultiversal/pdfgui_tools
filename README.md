@@ -20,6 +20,12 @@
 
 **pdfgui_tools** is a user interface tool developed in Qt and Python that integrates with **poppler-utils** and **PyPDF2** for PDF document management. It's a **simple** and **user-friendly** tool that includes various utilities such as merging PDFs, splitting PDFs, converting them to multimedia files like PNG or SVG, encrypting or decrypting, among other utilities included in pdfgui_tools.
 
+<div align="center">
+<p>pdfgui_tools
+</div>
+
+![1](./Screenshots/Screenshot_2.png?raw=true)
+
 # Sections
 ### Install pdfgui_tools:
 - [Debian-based distributions](#install-via-deb-package)
@@ -90,13 +96,7 @@ To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like 
 
 ![1](./Screenshots/Screenshot_1.png?raw=true)
 
-As you can see, it's a very simple window that displays the functions the application can perform.
-
-If we select an option, we will see a window like the following:
-
-![1](./Screenshots/Screenshot_2.png?raw=true)
-
-A window appears displaying the application's function. Each window is similar, and you can explore each function as needed. Additionally, if you require assistance, you can access a help window using the `F1` key.
+If you require assistance with the use of pdfgui_tools, you can check my blog or access help directly from the app by pressing the `F1` key.
 
 ## Dependencies
 Before being able to use pdfgui_tools, you need to have the following **dependencies** installed on your system for the program to function properly:
