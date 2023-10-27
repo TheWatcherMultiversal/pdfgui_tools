@@ -107,12 +107,14 @@ def install_targz(package : str, url : str, paths : list):
 def uninstall_targz(package : str, paths : list):
     # ----> Remove packages <---- #
 
-    print(Fore.RED, f"\r\nRemove {package[:-7]}")
+    print(Fore.RED + f"\r\nRemove {package[:-7]}" + Fore.RESET)
     print(Fore.YELLOW + '\r\nThe following command requires superuser privileges:' + Fore.RESET + ' sudo rm -r\r\n')
     print(Fore.GREEN + 'Removing existing files' + Fore.RESET)
 
     for path_ in paths:
         subprocess.run(f"sudo rm -r {path_}", shell=True)
+
+    print(Fore.GREEN + f"\r\nPackage {package} removed successfully" + Fore.RESET)
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 #   |
