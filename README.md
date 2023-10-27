@@ -96,7 +96,7 @@ To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like 
 
 ![1](./Screenshots/Screenshot_1.png?raw=true)
 
-If you require assistance with the use of pdfgui_tools, you can check my blog or access help directly from the app by pressing the `F1` key.
+If you need help or assistance navigating PDF GUI Tools, use the  `F1` key to display the help window.
 
 ## Dependencies
 Before being able to use pdfgui_tools, you need to have the following **dependencies** installed on your system for the program to function properly:

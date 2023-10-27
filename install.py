@@ -40,7 +40,7 @@ args = parser.parse_args()
 version         = '1.1.0'
 package_pdfgui  = f'pdfgui_tools_stable-release_{version}_all.tar.gz'
 url_package_pdfgui  = f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_pdfgui}'
-paths_pdfgui = ["/usr/bin/pdfgui_tools", "/usr/share/pdfgui_tools/", "/usr/share/applications/pdfgui_tools.desktop", "/usr/share/doc/pdfgui_tools/", "/usr/share/man/man1/pdfgui_tools.1.gz", "/usr/lib/python3/dist-packages/pdfguiUtils.py"]
+paths_pdfgui = ["/usr/bin/pdfgui_tools", "/usr/share/pdfgui_tools/", "/usr/share/applications/pdfgui_tools.desktop", "/usr/share/doc/pdfgui_tools/", "/usr/share/man/man1/pdfgui_tools.1.gz", "/usr/bin/pdfguiUtils.py"]
 
 # poppler-utils:
 version_poppler = '23.08'
