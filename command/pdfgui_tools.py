@@ -264,8 +264,8 @@ class Ui_MainWindow(object):
             "PNG"  : ("pdftocairo -png" , True),
             "JPEG" : ("pdftocairo -jpeg", True),
         }
-        for pdftocairo in ("PS, EPS, SVG"):
-            self.dictPDFs[pdftocairo] = (f'pdftocairo -{pdftocairo.lower()}', False)
+        for pdftocairo in ("PS", "EPS", "SVG"):
+            self.dictConvert[pdftocairo] = (f'pdftocairo -{pdftocairo.lower()}', False)
 
         # Disable Elements
         self.checkBox_range.setEnabled(False)
