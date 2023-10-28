@@ -1,4 +1,4 @@
-/* styles.qss */
+/* styles.css */
 
 /* All window */
 QWidget {
@@ -31,6 +31,59 @@ QPushButton:hover {
 
 QPushButton:pressed {
     background-color: #263aa9;
+}
+
+/* Window Buttons */
+
+QPushButton#button_merge {
+    background-color: #b65200;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_merge:hover {
+    background-color: #9c4600;
+}
+
+QPushButton#button_merge:pressed {
+    background-color: #853c00;
+}
+
+QPushButton#button_encrypt {
+    background-color: #108016;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_encrypt:hover {
+    background-color: #0e7413;
+}
+
+QPushButton#button_encrypt:pressed {
+    background-color: #0e6613;
+}
+
+QPushButton#button_decrypt {
+    background-color: #108016;
+    color: #ffffff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+QPushButton#button_decrypt:hover {
+    background-color: #0e7413;
+}
+
+QPushButton#button_decrypt:pressed {
+    background-color: #0e6613;
 }
 
 /* Group Box */
@@ -76,3 +129,4 @@ QCheckBox::indicator:unchecked:hover,
 QCheckBox::indicator:checked:hover {
     border: 2px solid #00cc4e;
 }
+
