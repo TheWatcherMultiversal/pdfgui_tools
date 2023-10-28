@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 #
-# PDF GUI TOOLS - pypdf2merge
+# PDF GUI TOOLS - pdfgui_tools
 # 
 # PDF GUI Tools app - Main file of pdfgui_tools 
 # Utilities are found in another file: pdfguiUtils
@@ -125,6 +125,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.button_convert)
         self.combo_filetype = QtWidgets.QComboBox(self.groupBox_2)
         self.combo_filetype.setObjectName("combo_filetype")
+        self.combo_filetype.addItem("")
         self.combo_filetype.addItem("")
         self.combo_filetype.addItem("")
         self.combo_filetype.addItem("")
@@ -256,6 +257,16 @@ class Ui_MainWindow(object):
         # Dictionary of PDF Information
         self.dictPDFs = {}
 
+        # Dictionary type of document conversion
+        self.dictConvert = {
+            "HTML" : ("pdftohtml"       , False),
+            "TXT"  : ("pdftotext"       , False),
+            "PNG"  : ("pdftocairo -png" , True),
+            "JPEG" : ("pdftocairo -jpeg", True),
+        }
+        for pdftocairo in ("PS, EPS, SVG"):
+            self.dictPDFs[pdftocairo] = (f'pdftocairo -{pdftocairo.lower()}', False)
+
         # Disable Elements
         self.checkBox_range.setEnabled(False)
         self.spinBox_range_initial.setEnabled(False)
@@ -324,6 +335,7 @@ class Ui_MainWindow(object):
         self.combo_filetype.setItemText(3, _translate("MainWindow", "EPS"))
         self.combo_filetype.setItemText(4, _translate("MainWindow", "SVG"))
         self.combo_filetype.setItemText(5, _translate("MainWindow", "HTML"))
+        self.combo_filetype.setItemText(6, _translate("MainWindow", "TXT"))
         self.label.setText(_translate("MainWindow", "Select a document"))
         self.groupBox.setTitle(_translate("MainWindow", "List PDFs"))
         self.button_add.setText(_translate("MainWindow", "Add File"))
@@ -440,9 +452,8 @@ class Ui_MainWindow(object):
                 while self.dictPDFs.get(file_name) is not None:
                     file_name += repeat_symbol
                 print("Add file:", file_name)
-                new_element = file_name
-                self.listWidget.addItem(new_element)
-                self.dictPDFs[new_element] = [False, [1,1]]
+                self.listWidget.addItem(file_name)
+                self.dictPDFs[file_name] = [False, [1,1]]
         else:
             print("Cancel...")
 
@@ -576,7 +587,7 @@ class Ui_MainWindow(object):
                 self.label_notice.setText(""); return
 
             # --> Compare the status of the checkboxes
-            if data[0] is True:
+            if data[0]:
                 self.command += ' ' + f'-f {self.spinBox_range_initial.value()}'
                 self.command += ' ' + f'-l {self.spinBox_range_final.value()}'
 
@@ -636,19 +647,10 @@ class Ui_MainWindow(object):
                 self.inf_messages("Info", f"The document {item} is encrypted, decrypt it to perform this action")
                 self.label_notice.setText(""); return
 
-            # --> Only in case the file to convert is HTML
-            if lower_filetype == "html":
-                # ---> Command
-                self.command = "pdftohtml"
-
-            else:
-                # ---> Command
-                self.command = "pdftocairo"
-                # ---> The parameter is added to the command.
-                self.command += ' ' + f'-{lower_filetype}'
+            # --> Obtains the type of conversion and command
+            self.command = self.dictConvert[filetype][0]
 
             # --> Get Current Item
-            
             print(f'File convert {lower_filetype}:', item)
             self.command += ' "' + item + '"'
 
@@ -658,8 +660,8 @@ class Ui_MainWindow(object):
             file_name, _ = QFileDialog.getSaveFileName(MainWindow, "Save File", f".{lower_filetype}", f"{filetype} Files (*.{lower_filetype})", options=options)
 
             if file_name:
-                if filetype == "PNG" or filetype == "JPEG": self.command += " " + str(f'"{file_name[:- len(filetype) - 1]}"')
-                else: self.command += " " + str(f'"{file_name}"')
+                if self.dictConvert[filetype][1]: self.command += " " + (f'"{file_name[:- len(filetype) - 1]}"')
+                else: self.command += " " + (f'"{file_name}"')
                 print(self.command)
                 print("Save file:", file_name)
 

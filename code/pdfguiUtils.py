@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 #
-# PDF GUI TOOLS - pdfgui_tools_utils
+# PDF GUI TOOLS - pdfguiUtils
 # 
-# pdfgui_tools_utils - Utilities file.
+# pdfguiUtils - Utilities file.
 # Author: Angel Gabriel Mortera Gual
 # License: GNU GENERAL PUBLIC LICENSE v3
 #
