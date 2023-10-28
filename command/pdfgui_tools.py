@@ -553,7 +553,7 @@ class Ui_MainWindow(object):
                 self.inf_messages("Info", "Enter a password"); self.label_notice.setText(""); return
 
             for pdf in pdfs:
-                pdf.replace(repeat_symbol, "")
+                pdf = pdf.replace(repeat_symbol, "")
                 if encrypt: status = PyPDF2utils.encrypt_pdf(pdf, self.lineEdit_password.text())
                 else:       status = PyPDF2utils.decrypt_pdf(pdf, self.lineEdit_password.text())
                 if status is not True: self.inf_messages(*status)
