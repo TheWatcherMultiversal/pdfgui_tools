@@ -43,6 +43,8 @@ To install pdfgui_tools, you will first need to download the **Debian package**,
 
 <a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v2.0.0/pdfgui_tools_stable-release_2.0.0_amd64.deb" target="_blank">📦 Download deb package</a>
 
+- Note: This will download the default version with the `amd64` **architecture**. If you want to install the version with `all` architectures, it is recommended to read the [Dependencies](#dependencies) section.
+
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
     sudo dpkg -i pdfgui_tools_stable-release_2.0.0_amd64.deb
