@@ -40,7 +40,7 @@ args = parser.parse_args()
 # pdfgui_tools:
 version             = '2.0.0'
 if args.arch_all    : arch_pdfgui_tools = 'all'
-else                : arch_pdfgui_tools = 'amd64'
+else                : arch_pdfgui_tools = 'x86_64'
 package_pdfgui      = (f'pdfgui_tools_stable-release_{version}_{arch_pdfgui_tools}.tar.gz')
 url_package_pdfgui  = (f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_pdfgui}')
 paths_pdfgui        = ["/usr/bin/pdfgui_tools", "/usr/share/pdfgui_tools/", "/usr/share/applications/pdfgui_tools.desktop", "/usr/share/doc/pdfgui_tools/", "/usr/share/man/man1/pdfgui_tools.1.gz", "/usr/bin/pdfguiUtils.py", "/usr/bin/pdfguiWindows.py"]
