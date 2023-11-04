@@ -127,7 +127,7 @@ Before being able to use pdfgui_tools, you need to have the following **dependen
 <li><a href="https://pypi.org/project/PySide6/" target="_blank"><b>PySide6 (6.6.0)</b></a></li>
 </ul>
 
-- Note: Starting from version `2.2.0` of **pdfgui_tools**, for versions with the `amd64` or `x86_64` **architecture**, it is not necessary to install **Python-related dependencies** separately. pdfgui_tools is bundled with pyinstaller along with **all the necessary dependencies** to run. It will only require those dependencies that are not part of Python.
+- Note: Starting from version `2.0.0` of **pdfgui_tools**, for versions with the `amd64` or `x86_64` **architecture**, it is not necessary to install **Python-related dependencies** separately. pdfgui_tools is bundled with pyinstaller along with **all the necessary dependencies** to run. It will only require those dependencies that are not part of Python.
 
 ## Report bugs or give suggestions
 To notify errors in the program or give suggestions for it, write your request in the following email: <universepenguin@protonmail.com>
