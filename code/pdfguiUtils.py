@@ -10,16 +10,19 @@
 #
 # -----------------------------------------------------------------------------------
 
-from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
-import os, subprocess, fitz
+from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter # <--- PyPDF2  v1.26.0
+import os, subprocess, fitz # <-------------------------------------- PyMuPDF v1.23.5
 
 # Variables and Paths
 title_app         = "PDF GUI Tools"#-------------------> Title app
-version_app       = "1.1.0"#---------------------------> Version pdfgui_tools
+version_app       = "2.0.0"#---------------------------> Version pdfgui_tools
 path_pdfgui_tools = ("/usr/share/pdfgui_tools")#-------> Path pdfgui_tools
 spinBox_range     = (1, 1000)#-------------------------> Allowed spinbox range
 repeat_symbol     = "*"#-------------------------------> Symbol of repeated PDFs in the list (avoids conflicts in the self.dictPDFs dictionary)
-maxSizeDocument    = 300#------------------------------> Maximum document display size.
+maxSizeDocument   = 300#-------------------------------> Maximum document display size.
+icon_pdf          = "application-pdf"#-----------------> Qt icon name for PDF document
+icon_pdfEncrypt   = "encrypted"#-----------------------> Qt icon name for encrypted files
+
 
 Paths = {
     "icon_app" : (f"{path_pdfgui_tools}/assets/pdfguitools.svg"),

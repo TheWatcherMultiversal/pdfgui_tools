@@ -12,11 +12,10 @@
 #
 # -----------------------------------------------------------------------------------
 
-from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidgetItem)
-from PySide6.QtCore    import (QSize, Qt, QCoreApplication)
-from PySide6.QtGui     import (QIcon, QFont, QPixmap)
-from Ui_Windows        import (Ui_MainWindow, Ui_AboutWindow)
-from pdfguiUtils       import (Paths, version_app, repeat_symbol, spinBox_range, maxSizeDocument, PyPDF2utils, PyMuPDF_Utils)
+from pdfguiWindows     import (Ui_MainWindow, Ui_AboutWindow, QApplication, QMainWindow, QListWidgetItem, QSize, QCoreApplication, QIcon, QFont, QPixmap)
+from pdfguiUtils       import (Paths, version_app, repeat_symbol, icon_pdf, icon_pdfEncrypt, spinBox_range, maxSizeDocument, PyPDF2utils, PyMuPDF_Utils)
+from PySide6.QtWidgets import (QMessageBox, QFileDialog)# <---| 
+from PySide6.QtCore    import (Qt)# <-------------------------| PySide6 v6.6.0
 import sys, os, subprocess, argparse
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -80,8 +79,8 @@ class pdfguiMainWindow(Ui_MainWindow):
         self.actionHelp.triggered.connect(self._help)
         self.actionAbout.triggered.connect(self._about)
         self.actionExit.triggered.connect(lambda: MainWindow.close())
-        self.actionEncrypt.triggered.connect(lambda: self.encrypt_decrypt(True, "encrypted"))
-        self.actionDecrypt.triggered.connect(lambda: self.encrypt_decrypt(False, "pdf"))
+        self.actionEncrypt.triggered.connect(lambda: self.encrypt_decrypt(True, icon_pdfEncrypt))
+        self.actionDecrypt.triggered.connect(lambda: self.encrypt_decrypt(False, icon_pdf))
 
         # -> checkBox
         self.checkBox_range.stateChanged.connect(self.click_checkBox_range)
@@ -105,8 +104,8 @@ class pdfguiMainWindow(Ui_MainWindow):
         self.button_down.clicked.connect(self.move_down)
         self.button_utils.clicked.connect(lambda: self.dockWidget.show())
         self.button_merge.clicked.connect(self.merge_pdf)
-        self.button_encrypt.clicked.connect(lambda: self.encrypt_decrypt(True, "encrypted"))
-        self.button_decrypt.clicked.connect(lambda: self.encrypt_decrypt(False, "pdf"))
+        self.button_encrypt.clicked.connect(lambda: self.encrypt_decrypt(True, icon_pdfEncrypt))
+        self.button_decrypt.clicked.connect(lambda: self.encrypt_decrypt(False, icon_pdf))
         self.button_separate.clicked.connect(self.separate_pdf)
         self.button_convert.clicked.connect(self.convert)
 
@@ -210,8 +209,8 @@ class pdfguiMainWindow(Ui_MainWindow):
                     pdf += repeat_symbol
                 
                 # ---> Set the icon type
-                if PyPDF2utils.fileEncrypted(path_file): icon_file = "encrypted"
-                else: icon_file = "pdf"
+                if PyPDF2utils.fileEncrypted(path_file): icon_file = icon_pdfEncrypt
+                else: icon_file = icon_pdf
                 icon = QIcon(QIcon.fromTheme(icon_file))
                 font = QFont(); font.setPointSize(11); font.setBold(True)
 
@@ -459,7 +458,7 @@ Advance Options:
 
     # Messages
     def inf_messages(self, title, message):
-        if   title == "Error" : QMessageBox.critical(MainWindow, title, message, QMessageBox.Ok)
+        if   title == "Error" : QMessageBox.critical   (MainWindow, title, message, QMessageBox.Ok)
         elif title == "Info"  : QMessageBox.information(MainWindow, title, message, QMessageBox.Ok)
 
 
