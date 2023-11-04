@@ -71,6 +71,8 @@ Now we can install pdfgui_tools by running the installation script:
 
     ./install.py
 
+If you want to install the version for **all architectures**, use the `--arch-all` option.
+
 - Note: This will install the default version with the `x86_64` **architecture**. If you need to install the `all` **architecture** version, which contains the unpacked Python packages, you will need to install the dependencies. Refer to the [Dependencies](#dependencies) section for more information.
 
 To **uninstall pdfgui_tools**, simply use the argument `-u` or `--uninstall` to perform this action.
