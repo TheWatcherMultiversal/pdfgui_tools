@@ -25,8 +25,9 @@ except ImportError:
 #   |
 #   °-- Argument:
 parser = argparse.ArgumentParser()
-parser.add_argument('-a', '--all', action='store_true', help='Incorporate poppler-utils into the installation script')
-parser.add_argument('-u', '--uninstall', action='store_true', help='Uninstall the installed pdfgui_tools packages')
+parser.add_argument('-a', '--all',        action='store_true', help='Incorporate poppler-utils into the installation script')
+parser.add_argument('-A', '--arch-all',   action='store_true', help='Install the pdfgui_tools version for all architectures')
+parser.add_argument('-u', '--uninstall',  action='store_true', help='Uninstall the installed pdfgui_tools packages')
 parser.add_argument('-r', '--remove-all', action='store_true', help='Remove all installed pdfgui_tools packages, including poppler-utils')
 args = parser.parse_args()
 
@@ -37,15 +38,17 @@ args = parser.parse_args()
 #   °-- Defining the variable names:
 
 # pdfgui_tools:
-version         = '1.1.0'
-package_pdfgui  = f'pdfgui_tools_stable-release_{version}_all.tar.gz'
-url_package_pdfgui  = f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_pdfgui}'
-paths_pdfgui = ["/usr/bin/pdfgui_tools", "/usr/share/pdfgui_tools/", "/usr/share/applications/pdfgui_tools.desktop", "/usr/share/doc/pdfgui_tools/", "/usr/share/man/man1/pdfgui_tools.1.gz", "/usr/bin/pdfguiUtils.py"]
+version             = '2.0.0'
+if args.arch_all    : arch_pdfgui_tools = 'all'
+else                : arch_pdfgui_tools = 'amd64'
+package_pdfgui      = (f'pdfgui_tools_stable-release_{version}_{arch_pdfgui_tools}.tar.gz')
+url_package_pdfgui  = (f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_pdfgui}')
+paths_pdfgui        = ["/usr/bin/pdfgui_tools", "/usr/share/pdfgui_tools/", "/usr/share/applications/pdfgui_tools.desktop", "/usr/share/doc/pdfgui_tools/", "/usr/share/man/man1/pdfgui_tools.1.gz", "/usr/bin/pdfguiUtils.py", "/usr/bin/pdfguiWindows.py"]
 
 # poppler-utils:
-version_poppler = '23.08'
-package_poppler = f'poppler-utils_{version_poppler}_amd64.tar.gz'
-url_package_poppler = f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_poppler}'
+version_poppler     = '23.08'
+package_poppler     = (f'poppler-utils_{version_poppler}_amd64.tar.gz')
+url_package_poppler = (f'https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v{version}/{package_poppler}')
 
 bin_packages_poppler = ['pdfattach', 'pdfdetach', 'pdffonts', 'pdfimages', 'pdfinfo', 'pdfseparate', 'pdfsig', 'pdftocairo', 'pdftohtml', 'pdftoppm', 'pdftops', 'pdftotext', 'pdfunite']
 paths_poppler = ["/usr/share/doc/poppler-utils"]
@@ -123,6 +126,6 @@ def uninstall_targz(package : str, paths : list):
 if (args.all or args.uninstall or args.remove_all) is False:
     install_targz(package_pdfgui ,url_package_pdfgui, paths_pdfgui)
 
-if   args.all        : install_targz(package_poppler, url_package_poppler, paths_poppler)
+if   args.all        : install_targz  (package_poppler, url_package_poppler, paths_poppler)
 elif args.uninstall  : uninstall_targz(package_pdfgui, paths_pdfgui)
 elif args.remove_all : uninstall_targz(package_pdfgui, paths_pdfgui); uninstall_targz(package_poppler, paths_poppler)
