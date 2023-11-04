@@ -124,8 +124,8 @@ def uninstall_targz(package : str, paths : list):
 #   |
 #   °-- Install pdfgui_tools:
 if (args.all or args.uninstall or args.remove_all) is False:
-    install_targz(package_pdfgui ,url_package_pdfgui, paths_pdfgui)
+    install_targz(package_pdfgui ,url_package_pdfgui, paths_pdfgui); sys.exit()
 
-if   args.all        : install_targz  (package_poppler, url_package_poppler, paths_poppler)
-elif args.uninstall  : uninstall_targz(package_pdfgui, paths_pdfgui)
-elif args.remove_all : uninstall_targz(package_pdfgui, paths_pdfgui); uninstall_targz(package_poppler, paths_poppler)
+if   args.all        : install_targz  (package_poppler, url_package_poppler, paths_poppler); sys.exit()
+elif args.uninstall  : uninstall_targz(package_pdfgui, paths_pdfgui); sys.exit()
+elif args.remove_all : uninstall_targz(package_pdfgui, paths_pdfgui); uninstall_targz(package_poppler, paths_poppler); sys.exit()
