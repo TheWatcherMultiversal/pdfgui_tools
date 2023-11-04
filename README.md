@@ -10,7 +10,6 @@
 <a href="#!" target="_blank"><img src="https://img.shields.io/badge/-Git-161618?style=for-the-badge&logo=git&logoColor=orange"></a>
 </div>
 
-
 <div align="center">
 <h1>pdfgui_tools
 </div>
@@ -24,7 +23,7 @@
 <p>pdfgui_tools
 </div>
 
-![1](./Screenshots/Screenshot_2.png?raw=true)
+![1](./Screenshots/Screenshot_1.png?raw=true)
 
 # Sections
 ### Install pdfgui_tools:
@@ -42,11 +41,13 @@
 ## Install via deb package
 To install pdfgui_tools, you will first need to download the **Debian package**, which can be found at the following link: 
 
-<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v1.1.0/pdfgui_tools_stable-release_1.1.0_all.deb" target="_blank">📦 Download deb package</a>
+<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v2.0.0/pdfgui_tools_stable-release_2.0.0_amd64.deb" target="_blank">📦 Download deb package</a>
+
+- Note: This will download the default version with the `amd64` **architecture**. If you want to install the version with `all` architectures, it is recommended to read the [Dependencies](#dependencies) section.
 
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
-    sudo dpkg -i pdfgui_tools_stable-release_1.1.0_all.deb
+    sudo dpkg -i pdfgui_tools_stable-release_2.0.0_amd64.deb
     
 - Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
 
@@ -62,7 +63,7 @@ In case you are using an **Arch-based** distribution, you can download pdfgui_to
 - <p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
 
 ## Install using a script
-If you do not have a Debian-based distribution or if you have a different package manager, you can use the installation script `./install.py`.
+If you don't have a **Debian-based** distribution or don't want to install from the **AUR**, you can install **pdfgui_tools** using the installation script `./install.py`. Before starting, first install **python3-colorama** to avoid import conflicts
 
 To do this, first make sure that the `./install.py` script have the necessary permissions to run on the system:
 
@@ -72,7 +73,11 @@ Now we can install pdfgui_tools by running the installation script:
 
     ./install.py
 
-- Note: To uninstall pdfgui_tools, you can use `./install.py --uninstall`  to remove pdfgui_tools from the system.
+If you want to install the version for **all architectures**, use the `--arch-all` option.
+
+- Note: This will install the default version with the `x86_64` **architecture**. If you need to install the `all` **architecture** version, which contains the unpacked Python packages, you will need to install the dependencies. Refer to the [Dependencies](#dependencies) section for more information.
+
+To **uninstall pdfgui_tools**, simply use the argument `-u` or `--uninstall` to perform this action.
 
 ### poppler-utils
 
@@ -89,22 +94,40 @@ Now we just need to check if the program was installed correctly, for this we ex
 
 In case you encounter any errors while running the script, please read the error messages provided by the script. Additionally, you will need to install the necessary dependencies to run pdfgui_tools correctly.
 
-
-
 ## Start using pdfgui_tools
 To start using pdfgui_tools, run the  `pdfgui_tools` command, and a window like the following should appear:
 
-![1](./Screenshots/Screenshot_1.png?raw=true)
+![1](./Screenshots/Screenshot_2.png?raw=true)
 
 If you need help or assistance navigating PDF GUI Tools, use the  `F1` key to display the help window.
 
 ## Dependencies
 Before being able to use pdfgui_tools, you need to have the following **dependencies** installed on your system for the program to function properly:
 
-- **poppler-utils**
-- **python3-pypdf2**
-- **python3-pyqt5**
-- **qtbase5-dev**
+#### Dependencies
+
+<ul>
+<li><a href="https://poppler.freedesktop.org/" target="_blank"><b>poppler-utils</b></a></li>
+<li><a href="" target="_blank"><b>xdg-utils</b></a></li>
+</ul>
+
+#### Optional dependencies
+
+<ul>
+<li><a href="" target="_blank"><b>breeze-icon-theme (default)</b></a></li>
+</ul>
+
+- Note: A default **icon theme** that works with **Qt** is required to properly display the **pdfgui_tools interface**. In some distributions like **KDE**, this dependency is not necessary.
+
+#### Python dependencies
+
+<ul>
+<li><a href="https://pypi.org/project/PyPDF2/" target="_blank"><b>PyPDF2 (1.26.0)</b></a></li>
+<li><a href="https://pypi.org/project/PyMuPDF/" target="_blank"><b>PyMuPDF (1.23.5)</b></a></li>
+<li><a href="https://pypi.org/project/PySide6/" target="_blank"><b>PySide6 (6.6.0)</b></a></li>
+</ul>
+
+- Note: Starting from version `2.0.0` of **pdfgui_tools**, for versions with the `amd64` or `x86_64` **architecture**, it is not necessary to install **Python-related dependencies** separately. pdfgui_tools is bundled with pyinstaller along with **all the necessary dependencies** to run. It will only require those dependencies that are not part of Python.
 
 ## Report bugs or give suggestions
 To notify errors in the program or give suggestions for it, write your request in the following email: <universepenguin@protonmail.com>

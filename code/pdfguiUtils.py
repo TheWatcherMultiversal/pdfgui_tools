@@ -10,16 +10,19 @@
 #
 # -----------------------------------------------------------------------------------
 
-
-from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
-import os, subprocess
+from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter # <--- PyPDF2  v1.26.0
+import os, subprocess, fitz # <-------------------------------------- PyMuPDF v1.23.5
 
 # Variables and Paths
 title_app         = "PDF GUI Tools"#-------------------> Title app
-version_app       = "1.1.0"#---------------------------> Version pdfgui_tools
+version_app       = "2.0.0"#---------------------------> Version pdfgui_tools
 path_pdfgui_tools = ("/usr/share/pdfgui_tools")#-------> Path pdfgui_tools
 spinBox_range     = (1, 1000)#-------------------------> Allowed spinbox range
 repeat_symbol     = "*"#-------------------------------> Symbol of repeated PDFs in the list (avoids conflicts in the self.dictPDFs dictionary)
+maxSizeDocument   = 300#-------------------------------> Maximum document display size.
+icon_pdf          = "application-pdf"#-----------------> Qt icon name for PDF document
+icon_pdfEncrypt   = "encrypted"#-----------------------> Qt icon name for encrypted files
+
 
 Paths = {
     "icon_app" : (f"{path_pdfgui_tools}/assets/pdfguitools.svg"),
@@ -31,36 +34,36 @@ Paths = {
 class PyPDF2utils:
 
     # >> Merge PDFs:
-    def merge_pdf(name_file:str, pdfs:list, pages:list):
+    def merge_pdf(name_file:str, pdfs:list):
         """PDF Merger using the `PyPDF2` module`
     
         :param name_file: Name of the document where the PDFs will be merged
 
-        :param pdfs: Receives a `list` with the paths of the PDFs to merge
-        
-        :param pages: Receives a `list` with the page ranges for merging each document"""
+        :param pdfs: Receives a `list` with the paths of the PDFs to merge"""
 
         try:
             pdf_merger = PdfFileMerger()
 
             try:
-                for pdf, page in zip(pdfs, pages):
-                    if PdfFileReader(pdf).isEncrypted is True: 
-                        return("Info", f"The document {pdf} is encrypted, decrypt it to perform this action")
+                for pdf in pdfs:
+                    path_pdf = pdf[2]; checkRangeBox = pdf[0]; pdf_range = (pdf[1][0], pdf[1][1])
 
-                    if page[0]: page = (page[1][0] - 1, page[1][1])
-                    else: page = None
-                    pdf_merger.append(open(pdf, 'rb'), pages=page)
+                    if PyPDF2utils.fileEncrypted(path_pdf): 
+                        return("Info", f"The document {path_pdf} is encrypted, decrypt it to perform this action")
 
-            except IndexError: return("Error", f"Index error in the file {pdf}, please enter a valid value")
-            except: return("Error", f"The document {pdf} could not be processed, please check the integrity of the document")
+                    if checkRangeBox: ran_page = pdf_range
+                    else: ran_page = None
+
+                    pdf_merger.append(open(path_pdf, 'rb'), pages=ran_page)
+
+            except IndexError: return("Error", f"Index error in the file {path_pdf}, please enter a valid value")
+            except: return("Error", f"The document {path_pdf} could not be processed, please check the integrity of the document")
 
             with open(name_file, 'wb') as f:
                 pdf_merger.write(f)
 
         except: return("Error", "The documents could not be processed")
         return True
-
 
 
     # >> Separate PDFs:
@@ -90,7 +93,6 @@ class PyPDF2utils:
         return True
 
 
-
     # >> Extract Text:
     def extract_text(name_file:str, pdf:str):
         """Text Extractor using the `PyPDF2` module.
@@ -111,7 +113,6 @@ class PyPDF2utils:
                 f.write(extract_content)
         except: return("Error", "The document could not be processed, please check the text format and the integrity of the document")
         return True
-
 
 
     # >> Encrypt PDFs:
@@ -142,7 +143,6 @@ class PyPDF2utils:
         return True
 
 
-
     # >> Decrypt PDFs:
     def decrypt_pdf(pdf:str, password:str):
         """Decrypt PDF documents using the `PyPDF2` module
@@ -171,10 +171,38 @@ class PyPDF2utils:
 
         except: return("Error", "The file could not be encrypted, please check the document's integrity")
         return True
-    
 
 
     # >> PDF id Encrypted:
     def fileEncrypted(pdf):
         try: return PdfFileReader(pdf).isEncrypted
         except: return False
+
+
+
+class PyMuPDF_Utils(object):
+
+    def __init__(self, pdf:str):
+        """Utilities included in the `fitz` module of PyMuPDF"""
+
+        self.document = fitz.open(pdf)
+        self.isEncrypted = PyPDF2utils.fileEncrypted(pdf)
+
+
+    # Obtains the dimensions of the PDF document
+    def getSize(self):
+        """Obtains the dimensions of the PDF document"""
+
+        if not self.isEncrypted:
+            firts_page = self.document[0]
+            return (firts_page.rect.width, firts_page.rect.height)
+
+
+    # Obtains the scale of the PDF document
+    def documentScale(self):
+        """Obtains the scale of the PDF document"""
+
+        if not self.isEncrypted:
+            documentSize = self.getSize()
+            if documentSize is None: return
+            return round(documentSize[1] / documentSize[0], 2)
