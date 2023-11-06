@@ -28,7 +28,7 @@
 # Sections
 ### Install pdfgui_tools:
 - [Debian-based distributions](#install-via-deb-package)
-- [Arch-based distributions (AUR)](#install-from-aur-yay)
+- [Arch-based distributions (AUR) - Unofficial](#install-from-aur-yay)
 - [Install using a script](#install-using-a-script)
 
 ### Using pdfgui_tools:
@@ -55,7 +55,7 @@ Now we just need to check if the program was installed correctly, for this we ex
 
     pdfgui_tools
 
-## Install from AUR (yay)
+## Install from AUR (yay) - Unofficial
 In case you are using an **Arch-based** distribution, you can download pdfgui_tools from **AUR** using `yay`:
 
     yay -S pdfgui_tools-bin
