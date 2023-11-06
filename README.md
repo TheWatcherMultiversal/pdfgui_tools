@@ -2,7 +2,7 @@
 
 
 [![GitHub release](https://img.shields.io/github/release/TheWatcherMultiversal/pdfgui_tools.svg)](https://github.com/TheWatcherMultiversal/pdfgui_tools/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/TheWatcherMultiversal/pdfgui_tools)](https://github.com/py-pdf/pypdf)
+[![GitHub last commit](https://img.shields.io/github/last-commit/TheWatcherMultiversal/pdfgui_tools)](https://github.com/TheWatcherMultiversal/pdfgui_tools/)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3.0-brown)](https://github.com/TheWatcherMultiversal/pdfgui_tools/blob/main/LICENSE)
 [![Poppler version](https://img.shields.io/badge/poppler--utils-23.08-orange)](https://poppler.freedesktop.org/)
 [![PySide6 version](https://img.shields.io/badge/PySide6-6.6.0-green)](https://pypi.org/project/PySide6/)
