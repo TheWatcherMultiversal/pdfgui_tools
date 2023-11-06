@@ -1,5 +1,16 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3c0c0c&height=130&section=header&text=PDF-GUI-Tools&fontSize=39&fontColor=fff&animation=twinkling&fontAlignY=35"/> 
 
+
+[![GitHub release](https://img.shields.io/github/release/TheWatcherMultiversal/pdfgui_tools.svg)](https://github.com/TheWatcherMultiversal/pdfgui_tools/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/TheWatcherMultiversal/pdfgui_tools)](https://github.com/py-pdf/pypdf)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3.0-brown)](https://github.com/TheWatcherMultiversal/pdfgui_tools/blob/main/LICENSE)
+[![Poppler version](https://img.shields.io/badge/poppler--utils-23.08-orange)](https://poppler.freedesktop.org/)
+[![PySide6 version](https://img.shields.io/badge/PySide6-6.6.0-green)](https://pypi.org/project/PyMuPDF/)
+[![PyPDF2 version](https://img.shields.io/badge/PyPDF2-1.26.0-red)](https://poppler.freedesktop.org/)
+[![PyMuPDF version](https://img.shields.io/badge/PyMuPDF-1.23.5-0b8c2c)](https://pypi.org/project/PyMuPDF/)
+
+---
+
 <div align="center"> 
 <p>Technologies used:</p>
 <a href="#!" target="_blank"><img src="https://img.shields.io/badge/-Linux-1e1f20?style=for-the-badge&logo=linux&logoColor=yellow"></a>
@@ -43,13 +54,13 @@ To install pdfgui_tools, you will first need to download the **Debian package**,
 
 <a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v2.0.0/pdfgui_tools_stable-release_2.0.0_amd64.deb" target="_blank">📦 Download deb package</a>
 
-- Note: This will download the default version with the `amd64` **architecture**. If you want to install the version with `all` architectures, it is recommended to read the [Dependencies](#dependencies) section.
+> Note: This will download the default version with the `amd64` **architecture**. If you want to install the version with `all` architectures, it is recommended to read the [Dependencies](#dependencies) section.
 
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
     sudo dpkg -i pdfgui_tools_stable-release_2.0.0_amd64.deb
     
-- Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
+> Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
 
 Now we just need to check if the program was installed correctly, for this we execute the following:
 
@@ -60,7 +71,7 @@ In case you are using an **Arch-based** distribution, you can download pdfgui_to
 
     yay -S pdfgui_tools-bin
 
-- <p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
+<p>You can find the package at this <a href="https://aur.archlinux.org/packages/pdfgui_tools-bin">link</a>, thanks to <a href="https://github.com/begin-theadventure">begin-theadventure</a>.</p>
 
 ## Install using a script
 If you don't have a **Debian-based** distribution or don't want to install from the **AUR**, you can install **pdfgui_tools** using the installation script `./install.py`. Before starting, first install **python3-colorama** to avoid import conflicts
@@ -75,7 +86,7 @@ Now we can install pdfgui_tools by running the installation script:
 
 If you want to install the version for **all architectures**, use the `--arch-all` option.
 
-- Note: This will install the default version with the `x86_64` **architecture**. If you need to install the `all` **architecture** version, which contains the unpacked Python packages, you will need to install the dependencies. Refer to the [Dependencies](#dependencies) section for more information.
+> Note: This will install the default version with the `x86_64` **architecture**. If you need to install the `all` **architecture** version, which contains the unpacked Python packages, you will need to install the dependencies. Refer to the [Dependencies](#dependencies) section for more information.
 
 To **uninstall pdfgui_tools**, simply use the argument `-u` or `--uninstall` to perform this action.
 
@@ -117,7 +128,7 @@ Before being able to use pdfgui_tools, you need to have the following **dependen
 <li><a href="" target="_blank"><b>breeze-icon-theme (default)</b></a></li>
 </ul>
 
-- Note: A default **icon theme** that works with **Qt** is required to properly display the **pdfgui_tools interface**. In some distributions like **KDE**, this dependency is not necessary.
+> Note: A default **icon theme** that works with **Qt** is required to properly display the **pdfgui_tools interface**. In some distributions like **KDE**, this dependency is not necessary.
 
 #### Python dependencies
 
@@ -127,7 +138,7 @@ Before being able to use pdfgui_tools, you need to have the following **dependen
 <li><a href="https://pypi.org/project/PySide6/" target="_blank"><b>PySide6 (6.6.0)</b></a></li>
 </ul>
 
-- Note: Starting from version `2.0.0` of **pdfgui_tools**, for versions with the `amd64` or `x86_64` **architecture**, it is not necessary to install **Python-related dependencies** separately. pdfgui_tools is bundled with pyinstaller along with **all the necessary dependencies** to run. It will only require those dependencies that are not part of Python.
+> Note: Starting from version `2.0.0` of **pdfgui_tools**, for versions with the `amd64` or `x86_64` **architecture**, it is not necessary to install **Python-related dependencies** separately. pdfgui_tools is bundled with pyinstaller along with **all the necessary dependencies** to run. It will only require those dependencies that are not part of Python.
 
 ## Report bugs or give suggestions
 To notify errors in the program or give suggestions for it, write your request in the following email: <universepenguin@protonmail.com>
