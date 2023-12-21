@@ -10,12 +10,12 @@
 #
 # -----------------------------------------------------------------------------------
 
-from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter # <--- PyPDF2  v1.26.0
+from PyPDF2 import PdfMerger, PdfReader, PdfWriter # <--------------- PyPDF2  v3.0.1
 import os, subprocess, fitz # <-------------------------------------- PyMuPDF v1.23.5
 
 # Variables and Paths
 title_app         = "PDF GUI Tools"#-------------------> Title app
-version_app       = "2.0.0"#---------------------------> Version pdfgui_tools
+version_app       = "2.0.1"#---------------------------> Version pdfgui_tools
 path_pdfgui_tools = ("/usr/share/pdfgui_tools")#-------> Path pdfgui_tools
 spinBox_range     = (1, 1000)#-------------------------> Allowed spinbox range
 repeat_symbol     = "*"#-------------------------------> Symbol of repeated PDFs in the list (avoids conflicts in the self.dictPDFs dictionary)
@@ -40,13 +40,12 @@ class PyPDF2utils:
         :param name_file: Name of the document where the PDFs will be merged
 
         :param pdfs: Receives a `list` with the paths of the PDFs to merge"""
-
+        print("Llamaste a la funcion")
         try:
-            pdf_merger = PdfFileMerger()
-
+            pdf_merger = PdfMerger()
             try:
                 for pdf in pdfs:
-                    path_pdf = pdf[2]; checkRangeBox = pdf[0]; pdf_range = (pdf[1][0], pdf[1][1])
+                    path_pdf = pdf[2]; checkRangeBox = pdf[0]; pdf_range = (pdf[1][0] - 1, pdf[1][1])
 
                     if PyPDF2utils.fileEncrypted(path_pdf): 
                         return("Info", f"The document {path_pdf} is encrypted, decrypt it to perform this action")
@@ -75,7 +74,7 @@ class PyPDF2utils:
         :param dest: Path to the directory to create, where the separated PDF documents will be stored"""
 
         try:
-            pdf_reader = PdfFileReader(pdf)
+            pdf_reader = PdfReader(pdf)
             dest_name = os.path.basename(dest)
             
             try:
@@ -83,9 +82,9 @@ class PyPDF2utils:
             except subprocess.CalledProcessError:
                 return("Error", f"The directory {dest} could not be created.")
 
-            for i in range(pdf_reader.numPages):
-                pdf_writer = PdfFileWriter()
-                pdf_writer.addPage(pdf_reader.getPage(i))
+            for i in range(len(pdf_reader.pages)):
+                pdf_writer = PdfWriter()
+                pdf_writer.add_page(pdf_reader.pages[i])
 
                 with open(f"{dest}/{dest_name}_{i + 1}.pdf", 'wb') as f:
                     pdf_writer.write(f)
@@ -102,11 +101,11 @@ class PyPDF2utils:
         :param pdf: PDF Document Path"""
 
         try:
-            pdf_reader = PdfFileReader(pdf)
+            pdf_reader = PdfReader(pdf)
             extract_content = ""
 
-            for i in range(pdf_reader.numPages):
-                text_page = pdf_reader.getPage(i).extractText().replace("\n", " ")
+            for i in range(len(pdf_reader.pages)):
+                text_page = pdf_reader.pages[i].extract_text().replace("\n", " ")
                 extract_content += f'{text_page}\r\n \r\n'
 
             with open(name_file, "w", encoding="utf-8") as f:
@@ -124,17 +123,17 @@ class PyPDF2utils:
         :param password: Gets the password to use for encrypting the document"""
 
         try:
-            pdf_writer = PdfFileWriter()
-            pdf_reader = PdfFileReader(pdf)
+            pdf_writer = PdfWriter()
+            pdf_reader = PdfReader(pdf)
 
-            if pdf_reader.isEncrypted:
+            if pdf_reader.is_encrypted:
                 return("Info", f"The document {pdf} is already encrypted")
 
-            for i in range(pdf_reader.numPages):
-                page = pdf_reader.getPage(i)
-                pdf_writer.addPage(page)
+            for i in range(len(pdf_reader.pages)):
+                page = pdf_reader.pages[i]
+                pdf_writer.add_page(page)
 
-            pdf_writer.encrypt(password)
+            pdf_writer.encrypt(password, use_128bit=True)
 
             with open(pdf, "wb") as f:
                 pdf_writer.write(f)
@@ -152,19 +151,19 @@ class PyPDF2utils:
         :param password: Gets the password to use for decrypting the file"""
 
         try:
-            pdf_writer = PdfFileWriter()
-            pdf_reader = PdfFileReader(pdf)
+            pdf_writer = PdfWriter()
+            pdf_reader = PdfReader(pdf)
 
-            if not pdf_reader.isEncrypted:
+            if not pdf_reader.is_encrypted:
                 return("Info", f"The document {pdf} is already decrypted.")
 
             returncode = pdf_reader.decrypt(password)
             if returncode == 0:
                 return("Info", f"Incorrect password for the document {pdf}, please try another password")
             
-            for i in range(pdf_reader.numPages):
-                page = pdf_reader.getPage(i)
-                pdf_writer.addPage(page)
+            for i in range(len(pdf_reader.pages)):
+                page = pdf_reader.pages[i]
+                pdf_writer.add_page(page)
                 
             with open(pdf, "wb") as f:
                 pdf_writer.write(f)
@@ -175,7 +174,7 @@ class PyPDF2utils:
 
     # >> PDF id Encrypted:
     def fileEncrypted(pdf):
-        try: return PdfFileReader(pdf).isEncrypted
+        try: return PdfReader(pdf).is_encrypted
         except: return False
 
 
