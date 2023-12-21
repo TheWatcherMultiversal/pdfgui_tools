@@ -38,7 +38,7 @@ args = parser.parse_args()
 #   °-- Defining the variable names:
 
 # pdfgui_tools:
-version             = '2.0.0'
+version             = '2.0.1'
 if args.arch_all    : arch_pdfgui_tools = 'all'
 else                : arch_pdfgui_tools = 'x86_64'
 package_pdfgui      = (f'pdfgui_tools_stable-release_{version}_{arch_pdfgui_tools}.tar.gz')
