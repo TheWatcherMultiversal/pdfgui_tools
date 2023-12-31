@@ -6,8 +6,8 @@
 [![GitHub license](https://img.shields.io/badge/license-GPLv3.0-brown)](https://github.com/TheWatcherMultiversal/pdfgui_tools/blob/main/LICENSE)
 [![Poppler version](https://img.shields.io/badge/poppler--utils-23.08-orange)](https://poppler.freedesktop.org/)
 [![PySide6 version](https://img.shields.io/badge/PySide6-6.6.0-green)](https://pypi.org/project/PySide6/)
-[![PyPDF2 version](https://img.shields.io/badge/PyPDF2-3.0.1-red)](https://pypi.org/project/PyPDF2/)
-[![PyMuPDF version](https://img.shields.io/badge/PyMuPDF-1.23.8-0b8c2c)](https://pypi.org/project/PyMuPDF/)
+[![PyPDF2 version](https://img.shields.io/badge/PyPDF2-1.26.0-red)](https://pypi.org/project/PyPDF2/)
+[![PyMuPDF version](https://img.shields.io/badge/PyMuPDF-1.23.5-0b8c2c)](https://pypi.org/project/PyMuPDF/)
 
 ---
 
@@ -52,7 +52,7 @@
 ## Install via deb package
 To install pdfgui_tools, you will first need to download the **Debian package**, which can be found at the following link: 
 
-<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v2.0.1/pdfgui_tools_stable-release_2.0.1_amd64.deb" target="_blank">📦 Download deb package</a>
+<a href="https://github.com/TheWatcherMultiversal/pdfgui_tools/releases/download/v2.0.0/pdfgui_tools_stable-release_2.0.0_amd64.deb" target="_blank">📦 Download deb package</a>
 
 > Note: This will download the default version with the `amd64` **architecture**. If you want to install the version with `all` architectures, it is recommended to read the [Dependencies](#dependencies) section.
 
@@ -133,8 +133,8 @@ Before being able to use pdfgui_tools, you need to have the following **dependen
 #### Python dependencies
 
 <ul>
-<li><a href="https://pypi.org/project/PyPDF2/" target="_blank"><b>PyPDF2 (3.0.1)</b></a></li>
-<li><a href="https://pypi.org/project/PyMuPDF/" target="_blank"><b>PyMuPDF (1.23.8)</b></a></li>
+<li><a href="https://pypi.org/project/PyPDF2/" target="_blank"><b>PyPDF2 (1.26.0)</b></a></li>
+<li><a href="https://pypi.org/project/PyMuPDF/" target="_blank"><b>PyMuPDF (1.23.5)</b></a></li>
 <li><a href="https://pypi.org/project/PySide6/" target="_blank"><b>PySide6 (6.6.1)</b></a></li>
 </ul>
 
