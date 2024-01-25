@@ -11,7 +11,7 @@
 # -----------------------------------------------------------------------------------
 
 from PyPDF2 import PdfMerger, PdfReader, PdfWriter # <--------------- PyPDF2  v3.0.1
-import os, subprocess, fitz # <-------------------------------------- PyMuPDF v1.23.5
+import os, subprocess, fitz # <-------------------------------------- PyMuPDF v1.23.8
 
 # Variables and Paths
 title_app         = "PDF GUI Tools"#-------------------> Title app

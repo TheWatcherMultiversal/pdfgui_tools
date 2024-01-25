@@ -15,7 +15,7 @@
 from pdfguiWindows     import (Ui_MainWindow, Ui_AboutWindow, QApplication, QMainWindow, QListWidgetItem, QSize, QCoreApplication, QIcon, QFont, QPixmap)
 from pdfguiUtils       import (Paths, version_app, repeat_symbol, icon_pdf, icon_pdfEncrypt, spinBox_range, maxSizeDocument, PyPDF2utils, PyMuPDF_Utils)
 from PySide6.QtWidgets import (QMessageBox, QFileDialog)# <---| 
-from PySide6.QtCore    import (Qt)# <-------------------------| PySide6 v6.6.0
+from PySide6.QtCore    import (Qt)# <-------------------------| PySide6 v6.6.1
 import sys, os, subprocess, argparse
 
 # ----------------------------------------------------------------------------------------------------------------
