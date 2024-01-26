@@ -40,7 +40,7 @@ class PyPDF2utils:
         :param name_file: Name of the document where the PDFs will be merged
 
         :param pdfs: Receives a `list` with the paths of the PDFs to merge"""
-        print("Llamaste a la funcion")
+         
         try:
             pdf_merger = PdfMerger()
             try:
