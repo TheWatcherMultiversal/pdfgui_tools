@@ -58,7 +58,7 @@ To install pdfgui_tools, you will first need to download the **Debian package**,
 
 Once we have our **Debian package** installed, simply execute the following command, and it will be downloaded to our system:
 
-    sudo dpkg -i pdfgui_tools_stable-release_2.0.1_amd64.deb
+    sudo dpkg -i pdfgui_tools_stable-release_2.0.0_amd64.deb
     
 > Note: If we find any missing dependencies, it's just a matter of installing them with the `sudo apt install -f` command
 
